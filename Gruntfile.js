@@ -5,10 +5,21 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     mochaTest: {
-      options: {
-        reporter: 'spec'
+      test: {
+        options: {
+          reporter: 'spec',
+          require: 'test/blanket'
+        },
+        src: ['test/**/*.js']
       },
-      src: ['test/**/*.js'],
+      coverage: {
+        options: {
+           reporter: 'html-cov',
+           quiet: true,
+           captureFile: 'coverage.html'
+        },
+        src: ['test/**/*.js']
+      }
     },
     jshint: {
       options: {
@@ -47,6 +58,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-blanket');
+  grunt.loadNpmTasks('grunt-notify');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);

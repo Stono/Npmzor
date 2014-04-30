@@ -26,15 +26,19 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt mochaTest"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt": "~0.4.4"
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt": "~0.4.4",
+    "sinon": "~1.9.1",
+    "grunt-notify": "~0.2.20",
+    "grunt-mocha-test": "~0.10.2",
+    "grunt-blanket": "0.0.8",
+    "blanket": "~1.1.6",
+    "deride": "^0.1.9"
   },
-  "keywords": [],
-  "dependencies": {
-    "grunt-mocha-test": "^0.10.2"
-  }
+  "keywords": []
 }
