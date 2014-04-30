@@ -18,7 +18,10 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib: {
-        src: ['lib/**/*.js']
+        src: [
+          'lib/**/*.js',
+          'app.js'
+        ]
       },
       test: {
         src: ['test/**/*.js']
@@ -31,11 +34,11 @@ module.exports = function(grunt) {
       },
       lib: {
         files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'nodeunit']
+        tasks: ['jshint:lib', 'mochaTest']
       },
       test: {
         files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'nodeunit']
+        tasks: ['jshint:test', 'mochaTest']
       },
     },
   });
