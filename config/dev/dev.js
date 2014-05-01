@@ -4,8 +4,16 @@ var productionConfig = require('../production/production');
 var devConfig = {
   http: {
     proxy: {
-      address: 'proxy.sdc.hp.com',
-      port: 8080
+      http: {
+        hostname: 'proxy.sdc.hp.com',
+        port: 8080,
+        protcol: 'http'
+      },
+      https: {
+        hostname: 'proxy.sdc.hp.com',
+        port: 8080,
+        protocol: 'http'
+      }
     }
   }
 };
