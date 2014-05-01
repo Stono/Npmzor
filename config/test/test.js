@@ -4,11 +4,8 @@ var productionConfig = require('../production/production');
 var testConfig = {
   port: 9615,
   logging: {
-    console: true,
+    console: false,
     file: false
-  },
-  http: {
-    proxy: {}
   }
 };
 

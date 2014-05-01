@@ -6,7 +6,10 @@ var ProductionConfig = {
   },
   http: {
     proxy: {}
-  }
+  },
+  registries: [
+    'http://registry.npmjs.org'
+  ]
 };
 
 module.exports = ProductionConfig;

@@ -1,18 +1,18 @@
 'use strict';
+var _ = require('lodash');
 
 var MockConfig = function() {
 
+  var config = _.merge({}, require('../config'));
+    
   var getNoProxyConfig = function() {
-    var config = require('../config');
-    config.logging.console = false;
-    config.http.proxy = {
-    };
+    config.registries = [];
+    config.http.proxy = {};
     return config;
   };
 
   var getHttpProxyConfig = function() {
-    var config = require('../config');
-    config.logging.console = false;
+    config.registries = [];
     config.http.proxy = {
       http: {
         hostname: 'proxy.sdc.hp.com',
@@ -24,8 +24,7 @@ var MockConfig = function() {
   };
 
   var getHttpsProxyConfig = function() {
-    var config = require('../config');
-    config.logging.console = false;
+    config.registries = [];
     config.http.proxy = {
       https: {
         hostname: 'proxy.sdc.hp.com',
@@ -37,8 +36,7 @@ var MockConfig = function() {
   };
 
   var getBothProxyConfig = function() {
-    var config = require('../config');
-    config.logging.console = false;
+    config.registries = [];
     config.http.proxy = {
       http: {
         hostname: 'proxy.sdc.hp.com',

@@ -3,14 +3,24 @@ var assert     = require('assert');
 var http       = require('http');
 var restler    = require('restler');
 var _          = require('lodash');
-var mockConfig = require('../mockConfig');
+var mockConfig = require('../mockConfig').getNoProxyConfig();
+var deride     = require('deride');
+var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
 describe('Routing Configuration (routes)', function() {
   var server,
       endpoint = 'http://127.0.0.1:9615';
 
   before(function(done) {
-    var routes = new require('../../lib/routes').Routes(mockConfig.getNoProxyConfig());
+    var registryManager = new RegistryManager(mockConfig);
+    var mockRegistryManager = deride.wrap(registryManager);
+
+    mockRegistryManager.setup
+      .getModuleIndex
+      .toCallbackWith([undefined, { _id: 'fake-repo' }]);
+    
+    var routes = new require('../../lib/routes')
+      .Routes(mockConfig, mockRegistryManager);
     server = http.createServer(routes.requestHandler);
     server.listen(9615, done);
   });

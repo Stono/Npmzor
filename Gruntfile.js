@@ -5,13 +5,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec',
-          require: 'test/blanket'
-        },
-        src: ['test/**/*.js']
-      },
       unit: {
         options: {
           reporter: 'spec'
@@ -80,6 +73,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mochaTest']);
+  grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']);
 
 };
