@@ -40,5 +40,8 @@
     "blanket": "~1.1.6",
     "deride": "^0.1.9"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "lodash": "^2.4.1"
+  }
 }

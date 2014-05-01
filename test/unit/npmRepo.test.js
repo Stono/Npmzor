@@ -3,6 +3,7 @@ var deride  = require('deride');
 var assert  = require('assert');
 var fs      = require('fs');
 var NpmRepo = require('../../lib/npmRepo').NpmRepo;
+var config  = require('../../config');
 
 describe('npmRepo', function() {
 
@@ -15,7 +16,7 @@ describe('npmRepo', function() {
     var mockHttp = deride.stub(['get']);
     mockHttp.setup.get.toCallbackWith([mockResponse]);
 
-    var npmRepo = new NpmRepo('http://registry.npmjs.org', mockHttp);
+    var npmRepo = new NpmRepo(config, 'http://registry.npmjs.org', mockHttp);
     npmRepo.getModuleIndex('mkdirp', function(err, json){
       assert.equal(json._id, 'mkdirp');
       done();
