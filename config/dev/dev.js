@@ -2,6 +2,7 @@ var _ = require('lodash');
 
 var productionConfig = require('../production/production');
 var devConfig = {
+  port: 8080,
   http: {
     proxy: {
       http: {
