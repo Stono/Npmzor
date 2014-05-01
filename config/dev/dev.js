@@ -3,6 +3,10 @@ var _ = require('lodash');
 var productionConfig = require('../production/production');
 var devConfig = {
   port: 8080,
+  logging: {
+    console: true,
+    file: false
+  },
   http: {
     proxy: {
       http: {

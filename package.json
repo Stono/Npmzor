@@ -44,6 +44,7 @@
   "keywords": [],
   "dependencies": {
     "lodash": "^2.4.1",
-    "director": "^1.2.3"
+    "director": "^1.2.3",
+    "minilog": "^2.0.4"
   }
 }

@@ -1,8 +1,10 @@
 'use strict';
 
 var MockConfig = function() {
+
   var getNoProxyConfig = function() {
     var config = require('../config');
+    config.logging.console = false;
     config.http.proxy = {
     };
     return config;
@@ -10,6 +12,7 @@ var MockConfig = function() {
 
   var getHttpProxyConfig = function() {
     var config = require('../config');
+    config.logging.console = false;
     config.http.proxy = {
       http: {
         hostname: 'proxy.sdc.hp.com',
@@ -22,6 +25,7 @@ var MockConfig = function() {
 
   var getHttpsProxyConfig = function() {
     var config = require('../config');
+    config.logging.console = false;
     config.http.proxy = {
       https: {
         hostname: 'proxy.sdc.hp.com',
@@ -34,6 +38,7 @@ var MockConfig = function() {
 
   var getBothProxyConfig = function() {
     var config = require('../config');
+    config.logging.console = false;
     config.http.proxy = {
       http: {
         hostname: 'proxy.sdc.hp.com',
