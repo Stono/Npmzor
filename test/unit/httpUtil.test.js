@@ -4,7 +4,7 @@ var http       = require('http');
 var HttpUtil   = require('../../lib/httpUtil').HttpUtil;
 var mockConfig = require('../mockConfig');
 
-describe('httpUtil.getHttpOpts', function() {
+describe('HTTP Utilities (getHttpOpts)', function() {
 
   it('Should not return proxy options if none are configured', function(done) {
     var config        = mockConfig.getNoProxyConfig();
@@ -109,7 +109,7 @@ describe('httpUtil.getHttpOpts', function() {
 
 });
 
-describe('httpUtil.getUrl', function() {
+describe('HTTP Utilities (getUrl)', function() {
   var server,
       serverReturns,
       endpoint = 'http://127.0.0.1:9615';

@@ -5,7 +5,7 @@ var restler    = require('restler');
 var _          = require('lodash');
 var mockConfig = require('../mockConfig');
 
-describe('routes', function() {
+describe('Routing Configuration (routes)', function() {
   var server,
       endpoint = 'http://127.0.0.1:9615';
 
