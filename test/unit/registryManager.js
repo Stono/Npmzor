@@ -1,6 +1,7 @@
 'use strict';
 var http            = require('http');
 var assert          = require('assert');
+var deride          = require('deride');
 var NpmRegistry     = require('../../lib/npmRegistry').NpmRegistry;
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 var HttpUtil        = require('../../lib/httpUtil').HttpUtil;
@@ -32,11 +33,29 @@ describe('Registry Manager (registryManager)', function() {
   
   it('Should not accept a Registry that already exists', function(done) {
     registryManager.addRegistry(npmRegistry, function(err) {
-      assert.equal(err, null);
+        assert.equal(err, null);
       registryManager.addRegistry(npmRegistry, function(err) {
         assert(err !== undefined);
         done();
       });      
+    });
+  });
+  
+  it('Should forward index requests to the external Registry', function(done) {
+    var mockRegistry = deride.wrap(npmRegistry);
+    mockRegistry.setup.getModuleIndex.toDoThis(function(name, callback) {
+      callback(undefined, {
+        _id: 'fake-repo'
+      });
+    });
+    registryManager.addRegistry(mockRegistry, function(err) {
+      assert.equal(err, undefined, err);
+      registryManager.getModuleIndex('fake-repo', function(err, details) {
+        assert.equal(err, undefined, err);
+        assert.equal(details._id, 'fake-repo');
+        mockRegistry.expect.getModuleIndex.called.once();
+        done();
+      });
     });
   });
   
