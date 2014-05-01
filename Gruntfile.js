@@ -24,6 +24,12 @@ module.exports = function(grunt) {
         },
         src: ['test/integration/**/*.js']
       },
+      acceptance: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/acceptance/**/*.js']
+      },
       coverage: {
         options: {
            reporter: 'html-cov',
@@ -57,11 +63,11 @@ module.exports = function(grunt) {
       },
       lib: {
         files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'mochaTest:unit', 'mochaTest:integration']
+        tasks: ['jshint:lib', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']
       },
       test: {
         files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'mochaTest:unit', 'mochaTest:integration']
+        tasks: ['jshint:test', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']
       }
     },
   });
