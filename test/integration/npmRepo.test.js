@@ -19,13 +19,11 @@ describe('npmRepo', function() {
     server = http.createServer(function (req, res) {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(serverReturns);
-    }).listen(9615);
-    done();
+    }).listen(9615, done);
   });
 
   after(function(done) {
-    server.close();
-    done();
+    server.close(done);
   });
 
   it('Should proxy package index requests to the external repository and return valid JSON', function(done) {

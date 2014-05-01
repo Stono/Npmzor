@@ -118,13 +118,11 @@ describe('httpUtil.getUrl', function() {
     server = http.createServer(function (req, res) {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(serverReturns);
-    }).listen(9615);
-    done();
+    }).listen(9615, done);
   });
 
   after(function(done) {
-    server.close();
-    done();
+    server.close(done);
   });
 
   it('Should get a url and return a valid JSON object', function(done) {

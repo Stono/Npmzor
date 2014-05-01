@@ -38,7 +38,8 @@
     "grunt-mocha-test": "~0.10.2",
     "grunt-blanket": "0.0.8",
     "blanket": "~1.1.6",
-    "deride": "^0.1.9"
+    "deride": "^0.1.9",
+    "restler": "^3.2.2"
   },
   "keywords": [],
   "dependencies": {
