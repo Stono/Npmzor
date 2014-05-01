@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var productionConfig = require('../production/production');
+var testConfig = require('../test/test');
 var devConfig = {
   port: 8080,
   logging: {
@@ -23,4 +23,4 @@ var devConfig = {
   }
 };
 
-module.exports = _.merge({}, productionConfig, devConfig);
+module.exports = _.merge({}, testConfig, devConfig);
