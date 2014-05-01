@@ -42,6 +42,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "director": "^1.2.3"
   }
 }
