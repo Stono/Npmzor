@@ -3,6 +3,7 @@ var assert     = require('assert');
 var http       = require('http');
 var HttpUtil   = require('../../lib/httpUtil').HttpUtil;
 var mockConfig = require('../mockConfig');
+var fs         = require('fs');
 
 describe('HTTP Utilities (getHttpOpts)', function() {
 
@@ -109,7 +110,7 @@ describe('HTTP Utilities (getHttpOpts)', function() {
 
 });
 
-describe('HTTP Utilities (getUrl)', function() {
+describe('HTTP Utilities (getJsonUrl)', function() {
   var server,
       serverReturns,
       endpoint = 'http://127.0.0.1:9615';
@@ -133,6 +134,34 @@ describe('HTTP Utilities (getUrl)', function() {
       assert.equal(err, null);
       assert.equal(serverReturns, JSON.stringify(json));
       assert.equal(json.myobject, 'value');
+      done();
+    });
+  });
+
+});
+
+
+describe('HTTP Utilities (getBinaryUrl)', function() {
+  var server,
+      endpoint = 'http://127.0.0.1:9615';
+
+  before(function(done) {
+    server = http.createServer(function (req, res) {
+      res.setHeader('Content-type', 'application/octet-stream');
+      fs.createReadStream(__dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz').pipe(res);
+    }).listen(9615, done);
+  });
+
+  after(function(done) {
+    server.close(done);
+  });
+
+  it('Should get a tgz file and save it to a temporary location', function(done) {
+    var config    = mockConfig.getNoProxyConfig();
+    var httpUtil  = new HttpUtil(config, http);
+    var target    = '/tmp/test-package.tgz';
+    httpUtil.getBinaryUrl(endpoint, target, function(err) {
+      assert.equal(err, null);
       done();
     });
   });
