@@ -14,11 +14,10 @@ describe('NPM Registry (npmRegistry)', function() {
   var config     = mockConfig.getNoProxyConfig();
   var httpUtil   = deride.wrap(new HttpUtil(config, http));
 
-  var binFile    = fs.readFileSync(__dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz');
   it.only('Should return the path of a tgz package that has been downloaded', function(done) {
     httpUtil.setup.getBinaryUrl.toCallbackWith([
       undefined, 
-      binFile
+      'useless junk'
     ]);
 
     var npmRegistry = new NpmRegistry(config, httpUtil, endpoint);
