@@ -16,7 +16,7 @@ describe('Registry Manager (registryManager)', function() {
 
   beforeEach(function() {
     var httpUtil    = new HttpUtil(mockConfig, http);
-    npmRegistry     = new NpmRegistry(httpUtil, registryRoot);
+    npmRegistry     = new NpmRegistry(mockConfig, httpUtil, registryRoot);
     registryManager = new RegistryManager(mockConfig);    
   });
   
@@ -58,7 +58,6 @@ describe('Registry Manager (registryManager)', function() {
         mockRegistry.expect.getModuleIndex.called.once();
         done();
       });
-      
     });
     
     it('Should not hit the second registry if the first returned a positive result', function(done) {
@@ -82,7 +81,6 @@ describe('Registry Manager (registryManager)', function() {
         mockRegistry2.expect.getModuleIndex.called.never();
         done();
       });
-    
     });
     
     it('Should hit the second registry if the first returned a negative result', function(done) {
@@ -109,7 +107,6 @@ describe('Registry Manager (registryManager)', function() {
         mockRegistry2.expect.getModuleIndex.called.once();
         done();
       });
-    
     });
     
     it('Should return an error if no results were found', function(done) {
@@ -118,7 +115,7 @@ describe('Registry Manager (registryManager)', function() {
         done();
       });      
     });
-    
+
   });
   
 });

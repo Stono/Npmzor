@@ -4,7 +4,7 @@ var testConfig = require('../test/test');
 var devConfig = {
   port: 8080,
   logging: {
-    console: false,
+    console: true,
     file: false
   }
 };
