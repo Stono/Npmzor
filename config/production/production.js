@@ -1,4 +1,6 @@
-var ProductionConfig = {
+var os = require("os");
+
+var productionConfig = {
   port: 80,
   logging: {
     console: false,
@@ -24,11 +26,13 @@ var extractUrl = function(url) {
 
 // Now we need to detect environment proxies
 if(process.env.http_proxy) {
-  ProductionConfig.http.proxy.http = extractUrl(process.env.http_proxy);
+  productionConfig.http.proxy.http = extractUrl(process.env.http_proxy);
 };
-
 if(process.env.https_proxy) {
-  ProductionConfig.http.proxy.https = extractUrl(process.env.https_proxy);
+  productionConfig.http.proxy.https = extractUrl(process.env.https_proxy);
 };
 
-module.exports = ProductionConfig;
+// Set the full url of this registry
+productionConfig.url = 'http://' + os.hostname() + ':' + productionConfig.port;
+
+module.exports = productionConfig;
