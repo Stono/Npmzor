@@ -155,6 +155,9 @@ describe('HTTP Utilities (getBinaryUrl)', function() {
   it('Should get a tgz file and save it to a temporary location', function(done) {
     var httpUtil  = new HttpUtil(config, http);
     var target    = '/tmp/test-package.tgz';
+    if(fs.existsSync(target)) {
+      fs.unlinkSync(target);
+    }
     httpUtil.getBinaryUrl(config.url, target, function(err) {
       assert.equal(err, null);
       done();
