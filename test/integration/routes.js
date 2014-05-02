@@ -31,17 +31,17 @@ describe('Routing Configuration (routes)', function() {
   });
 
   var urls = [
-    { url: 'readable-stream', code: 200 },
-    { url: 'readable_stream', code: 200 },
-    { url: 'r34dable_stream', code: 200 },
-    { url: 'readable-stream/0.1.0', code: 200 },
-    { url: 'readable-stream/0.3.4', code: 200 },
-    { url: 'readable-stream/12.1.0', code: 404 },
-    { url: 'readable-stream/12.1.20', code: 404 },
-    { url: 'readable-stream/-/readable-stream-1.0.27-1.tgz', code: 200 },
-    { url: 'readable-stream/-/readable-stream.tgz', code: 404 },
-    { url: 'readable-stream/-/readable-stream.zip', code: 404 },
-    { url: 'readable-stream/readable-stream.tgz', code: 404 }
+    { url: 'some-module', code: 200 },
+    { url: 'some_module', code: 200 },
+    { url: 's0m3_m0dul3', code: 200 },
+    { url: 'some-module/0.1.0', code: 200 },
+    { url: 'some-module/0.3.4', code: 200 },
+    { url: 'some-module/12.1.0', code: 404 },
+    { url: 'some-module/12.1.20', code: 404 },
+    { url: 'some-module/-/some-module-1.0.27-1.tgz', code: 200 },
+    { url: 'some-module/-/some-module.tgz', code: 404 },
+    { url: 'some-module/-/some-module.zip', code: 404 },
+    { url: 'some-module/some-module.tgz', code: 404 }
   ];
 
   _.forEach(urls, function(url) {
