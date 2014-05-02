@@ -1,6 +1,6 @@
 Note:  Still under development, some features missing and needs a 'Green Refactor!'
 
-# Npmzor [![Build Status](rhttps://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor)
+# Npmzor [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor)
 NPMZor is a aggregating, caching proxy for NPM (Still under development).
 This project came about as I work for Hewlett-Packard, and my development team sit behind some proxies.
 We also have an internal NPM repository that we host our own NPM packages on.
