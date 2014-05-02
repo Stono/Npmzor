@@ -44,10 +44,10 @@ describe('NPMZor', function() {
     });
   });
 
-  it.only('Should return a module when the request is valid', function(done) {
+  it('Should return a module when the request is valid', function(done) {
     var target  = '/tmp/' + Date.now().toString(12);
     var file    = fs.createWriteStream(target);
-    var request = http.get(endPoint + '/deride/-/deride-0.1.0.tgz', function(response) {
+    http.get(endPoint + '/deride/-/deride-0.1.0.tgz', function(response) {
       response.pipe(file);
       file.on('finish', function() {
         file.close(function() {

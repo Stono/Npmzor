@@ -23,7 +23,7 @@
   "trailing": true,
   "maxcomplexity": 3,
   "maxdepth": 2,
-  "maxparams": 4,
+  "maxparams": 5,
   "maxstatements": 25,
  
   // Relaxing options:

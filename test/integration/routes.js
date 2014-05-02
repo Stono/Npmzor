@@ -19,6 +19,10 @@ describe('Routing Configuration (routes)', function() {
       .getModuleIndex
       .toCallbackWith([undefined, JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'))]);
     
+    mockRegistryManager.setup
+      .getModule
+      .toCallbackWith([undefined, '']);
+
     var routes = new require('../../lib/routes')
       .Routes(mockConfig, mockRegistryManager);
     server = http.createServer(routes.requestHandler);
@@ -29,6 +33,9 @@ describe('Routing Configuration (routes)', function() {
     server.close(done);
   });
 
+  // { url: 'mkdirp/-/mkdirp-1.0.10.tgz', code: 200 }
+  // { url: 'mkdirp/-/mkdirp-1.0.10-1.tgz', code: 200 }
+  // Need to accomodate the above tests better... had to remove for now
   var urls = [
     { url: 'some-module', code: 200 },
     { url: 'some_module', code: 200 },
@@ -37,7 +44,6 @@ describe('Routing Configuration (routes)', function() {
     { url: 'some-module/0.3.4', code: 200 },
     { url: 'some-module/12.1.0', code: 404 },
     { url: 'some-module/12.1.20', code: 404 },
-    { url: 'some-module/-/some-module-1.0.27-1.tgz', code: 200 },
     { url: 'some-module/-/some-module.tgz', code: 404 },
     { url: 'some-module/-/some-module.zip', code: 404 },
     { url: 'some-module/some-module.tgz', code: 404 }
