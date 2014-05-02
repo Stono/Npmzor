@@ -3,6 +3,7 @@ var os = require("os");
 var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
+  temp: '/tmp',
   logging: {
     console: false,
     file: true
