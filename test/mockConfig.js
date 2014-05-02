@@ -3,15 +3,17 @@ var _ = require('lodash');
 
 var MockConfig = function() {
 
-  var config = _.merge({}, require('../config'));
+  var requiredConfig = require('../config');
     
   var getNoProxyConfig = function() {
+    var config = _.merge({}, requiredConfig);
     config.registries = [];
     config.http.proxy = {};
     return config;
   };
 
   var getHttpProxyConfig = function() {
+    var config = _.merge({}, requiredConfig);
     config.registries = [];
     config.http.proxy = {
       http: {
@@ -24,6 +26,7 @@ var MockConfig = function() {
   };
 
   var getHttpsProxyConfig = function() {
+    var config = _.merge({}, requiredConfig);
     config.registries = [];
     config.http.proxy = {
       https: {
@@ -36,6 +39,7 @@ var MockConfig = function() {
   };
 
   var getBothProxyConfig = function() {
+    var config = _.merge({}, requiredConfig);
     config.registries = [];
     config.http.proxy = {
       http: {

@@ -6,21 +6,18 @@ var http        = require('http');
 var mockConfig  = require('../mockConfig');
 var fs          = require('fs');
 var deride      = require('deride');
+var _           = require('lodash');
 
 describe('NPM Registry (npmRegistry)', function() {
-  var endpoint = 'http://127.0.0.1:9615';
-
-  var sampleData = {
-    packageIndex: JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'))
-  };
-
+  var endpoint   = 'some-fake-endpoint';
+  var sampleData = JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'));
 
   it('Should proxy package index requests to the external registry and return valid JSON', function(done) {
     var config      = mockConfig.getNoProxyConfig();
     var httpUtil    = deride.wrap(new HttpUtil(config, http));
     httpUtil.setup.getJsonUrl.toCallbackWith([
       undefined, 
-      sampleData.packageIndex
+      _.clone(sampleData, true)
     ]);
 
     var npmRegistry = new NpmRegistry(config, httpUtil, endpoint);
@@ -38,7 +35,7 @@ describe('NPM Registry (npmRegistry)', function() {
     var httpUtil    = deride.wrap(new HttpUtil(config, http));
     httpUtil.setup.getJsonUrl.toCallbackWith([
       undefined, 
-      sampleData.packageIndex
+      _.clone(sampleData, true)
     ]);
 
     var npmRegistry = new NpmRegistry(config, httpUtil, endpoint);
@@ -48,6 +45,7 @@ describe('NPM Registry (npmRegistry)', function() {
       httpUtil.expect.getJsonUrl.called.once();
       assert(JSON.stringify(json).indexOf('registry.npmjs.org') === -1, 'registry.npmjs.org was still found in the data');
       assert(JSON.stringify(json).indexOf(config.url) > -1, config.url + ' was not found in the data');
+      assert.equal(json.versions['0.0.5'].dist.tarball, config.url + '/mkdirp/-/mkdirp-0.0.5.tgz');
       done();
     });
 

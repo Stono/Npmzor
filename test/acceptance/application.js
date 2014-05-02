@@ -10,12 +10,15 @@ var config     = require('../../config');
 describe('NPMZor', function() {
   
   // process.env.ENV = 'test';
-  var endPoint = 'http://127.0.0.1:' + config.port;
+  var endPoint = config.url;
 
-  before(function() {
+  before(function(done) {
     require('../../app.js');
+    done();
   });
   
+  this.timeout(3000);
+
   it('It should return a valid index page', function(done) {
     restler.get(endPoint + '/deride')
     .on('complete', function(result, res) {

@@ -2,6 +2,7 @@ var os = require("os");
 
 var productionConfig = {
   port: 80,
+  url: 'http://' +  os.hostname(),
   logging: {
     console: false,
     file: true
@@ -31,8 +32,5 @@ if(process.env.http_proxy) {
 if(process.env.https_proxy) {
   productionConfig.http.proxy.https = extractUrl(process.env.https_proxy);
 };
-
-// Set the full url of this registry
-productionConfig.url = 'http://' + os.hostname() + ':' + productionConfig.port;
 
 module.exports = productionConfig;

@@ -9,8 +9,7 @@ var fs         = require('fs');
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
 describe('Routing Configuration (routes)', function() {
-  var server,
-      endpoint = 'http://127.0.0.1:9615';
+  var server;
 
   before(function(done) {
     var registryManager = new RegistryManager(mockConfig);
@@ -23,7 +22,7 @@ describe('Routing Configuration (routes)', function() {
     var routes = new require('../../lib/routes')
       .Routes(mockConfig, mockRegistryManager);
     server = http.createServer(routes.requestHandler);
-    server.listen(9615, done);
+    server.listen(mockConfig.port, done);
   });
 
   after(function(done) {
@@ -46,7 +45,7 @@ describe('Routing Configuration (routes)', function() {
 
   _.forEach(urls, function(url) {
     it('Should return status ' + url.code + ' for ' + url.url, function(done) {
-      restler.get(endpoint + '/' + url.url)
+      restler.get(mockConfig.url + '/' + url.url)
       .on('complete', function(result, res) {
         assert.equal(result instanceof Error, false, result.toString());
         assert.equal(res.statusCode, url.code);

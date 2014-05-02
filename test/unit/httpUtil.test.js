@@ -112,28 +112,24 @@ describe('HTTP Utilities (getHttpOpts)', function() {
 
 describe('HTTP Utilities (getJsonUrl)', function() {
   var server,
-      serverReturns,
-      endpoint = 'http://127.0.0.1:9615';
+      config = mockConfig.getNoProxyConfig();
 
   before(function(done) {
     server = http.createServer(function (req, res) {
       res.writeHead(200, {'Content-Type': 'application/json'});
-      res.end(serverReturns);
-    }).listen(9615, done);
+      fs.createReadStream(__dirname + '/../data/sample-requests/mkdirp').pipe(res);
+    }).listen(config.port, done);
   });
 
-  after(function(done) {
-    server.close(done);
+  after(function() {
+    server.close();
   });
 
   it('Should get a url and return a valid JSON object', function(done) {
-    serverReturns = '{"myobject":"value"}';
-    var config    = mockConfig.getNoProxyConfig();
     var httpUtil  = new HttpUtil(config, http);
-    httpUtil.getJsonUrl(endpoint, function(err, json) {
+    httpUtil.getJsonUrl(config.url, function(err, json) {
       assert.equal(err, null);
-      assert.equal(serverReturns, JSON.stringify(json));
-      assert.equal(json.myobject, 'value');
+      assert.equal(json._id, 'mkdirp');
       done();
     });
   });
@@ -143,24 +139,23 @@ describe('HTTP Utilities (getJsonUrl)', function() {
 
 describe('HTTP Utilities (getBinaryUrl)', function() {
   var server,
-      endpoint = 'http://127.0.0.1:9615';
+      config = mockConfig.getNoProxyConfig();
 
   before(function(done) {
     server = http.createServer(function (req, res) {
       res.setHeader('Content-type', 'application/octet-stream');
       fs.createReadStream(__dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz').pipe(res);
-    }).listen(9615, done);
+    }).listen(config.port, done);
   });
 
-  after(function(done) {
-    server.close(done);
+  after(function() {
+    server.close();
   });
 
   it('Should get a tgz file and save it to a temporary location', function(done) {
-    var config    = mockConfig.getNoProxyConfig();
     var httpUtil  = new HttpUtil(config, http);
     var target    = '/tmp/test-package.tgz';
-    httpUtil.getBinaryUrl(endpoint, target, function(err) {
+    httpUtil.getBinaryUrl(config.url, target, function(err) {
       assert.equal(err, null);
       done();
     });
