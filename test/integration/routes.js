@@ -5,6 +5,7 @@ var restler    = require('restler');
 var _          = require('lodash');
 var mockConfig = require('../mockConfig').getNoProxyConfig();
 var deride     = require('deride');
+var fs         = require('fs');
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
 describe('Routing Configuration (routes)', function() {
@@ -17,7 +18,7 @@ describe('Routing Configuration (routes)', function() {
 
     mockRegistryManager.setup
       .getModuleIndex
-      .toCallbackWith([undefined, { _id: 'fake-repo' }]);
+      .toCallbackWith([undefined, JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'))]);
     
     var routes = new require('../../lib/routes')
       .Routes(mockConfig, mockRegistryManager);
@@ -33,6 +34,10 @@ describe('Routing Configuration (routes)', function() {
     { url: 'readable-stream', code: 200 },
     { url: 'readable_stream', code: 200 },
     { url: 'r34dable_stream', code: 200 },
+    { url: 'readable-stream/0.1.0', code: 200 },
+    { url: 'readable-stream/0.3.4', code: 200 },
+    { url: 'readable-stream/12.1.0', code: 404 },
+    { url: 'readable-stream/12.1.20', code: 404 },
     { url: 'readable-stream/-/readable-stream-1.0.27-1.tgz', code: 200 },
     { url: 'readable-stream/-/readable-stream.tgz', code: 404 },
     { url: 'readable-stream/-/readable-stream.zip', code: 404 },
