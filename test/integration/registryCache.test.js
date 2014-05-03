@@ -1,4 +1,11 @@
 'use strict';
+/*
+ * WARNING: Tingo, assert, and the setup we have dont
+ * seem to play well together when an error occures.
+ * Therefore if you have a failing test, dont trust the
+ * error you're seeing - and do some manual debugging to
+ * find the issue (the fail will be genuine however)
+ */
 var fs     = require('fs');
 var assert = require('assert');
 var RegistryCache = require('../../lib/registryCache').RegistryCache;
