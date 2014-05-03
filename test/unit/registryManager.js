@@ -4,6 +4,7 @@ var assert          = require('assert');
 var deride          = require('deride');
 var NpmRegistry     = require('../../lib/npmRegistry').NpmRegistry;
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
+var RegistryCache   = require('../../lib/registryCache').RegistryCache;
 var HttpUtil        = require('../../lib/httpUtil').HttpUtil;
 
 var mockConfig  = require('../mockConfig').getNoProxyConfig();
@@ -17,7 +18,13 @@ describe('Registry Manager (registryManager)', function() {
   beforeEach(function() {
     var httpUtil    = new HttpUtil(mockConfig, http);
     npmRegistry     = new NpmRegistry(mockConfig, httpUtil, registryRoot);
-    registryManager = new RegistryManager(mockConfig);    
+    
+    var mockDb      = deride.stub(['collection']);
+    var mockCache   = deride.wrap(new RegistryCache(mockConfig, mockDb));
+    mockCache.setup.getIndex.toCallbackWith([undefined, null]);
+    mockCache.setup.addIndex.toCallbackWith([undefined, null]);
+    
+    registryManager = new RegistryManager(mockConfig, mockCache);    
   });
   
   it('Should accept a new Registry', function(done) {
