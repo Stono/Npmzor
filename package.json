@@ -46,6 +46,7 @@
     "lodash": "2.4.1",
     "director": "1.2.3",
     "minilog": "2.0.4",
-    "tingodb": "0.2.1"
+    "tingodb": "0.2.1",
+    "date-utils": "^1.2.15"
   }
 }
