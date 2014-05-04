@@ -17,12 +17,17 @@ var crypto     = require('../../lib/crypto');
 describe('NPMZor against registry.npmjs.org', function() {
   
   // process.env.ENV = 'test';
-  var endPoint = config.url;
+  var endPoint = config.url,
+      app;
   config.registries = ['http://registry.npmjs.org'];
   
   before(function(done) {
-    require('../../app.js');
+    app = require('../../app.js');
     done();
+  });
+  
+  after(function(done) {
+    app().close(done);
   });
   
   this.timeout(3000);

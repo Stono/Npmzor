@@ -16,6 +16,7 @@ var config          = require('./config');
 // We're going to use tingodb, but you could switch this out to mongodb if you wanted.
 var Db              = require('tingodb')().Db;
 var log             = new Logger(config, 'App');
+var app;
 
 // Cache DB setup
 log.debug('Initialising Cache DB at: ' + config.cache.db);
@@ -30,6 +31,10 @@ mkdirp(config.cache.db, function(err) {
   var routes          = new Routes(config, registryManager);
   var server          = http.createServer(routes.requestHandler);
   
-  server.listen(config.port);
+  app = server.listen(config.port); 
   log.debug('NPMZor started at: ' + config.url);
 });
+
+module.exports = function() {
+  return app;
+};
