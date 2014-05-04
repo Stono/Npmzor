@@ -14,7 +14,7 @@ To be done:
 
 # Npmzor 
 [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) 
-[![Coverage Status](https://coveralls.io/repos/Stono/Npmzor/badge.png)](https://coveralls.io/r/Stono/Npmzor)
+[![Coverage Status](https://coveralls.io/repos/Stono/Npmzor/badge.png?branch=develop)](https://coveralls.io/r/Stono/Npmzor?branch=develop)
 [![Dependency Status](https://david-dm.org/Stono/Npmzor.svg)](https://david-dm.org/Stono/Npmzor)
 
 NPMZor is a aggregating and caching NPM Registry server.

@@ -80,5 +80,5 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']);
-  grunt.registerTask('travis', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'shell:coverage']);
+  grunt.registerTask('travis', ['jshint', 'shell:coverage']);
 };
