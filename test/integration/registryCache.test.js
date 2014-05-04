@@ -8,6 +8,7 @@
  */
 var fs     = require('fs');
 var assert = require('assert');
+var mkdirp = require('mkdirp');
 var RegistryCache = require('../../lib/registryCache').RegistryCache;
 var mockConfig    = require('../mockConfig').getNoProxyConfig();
 
@@ -33,17 +34,13 @@ describe('NPM Registry Cache', function() {
     }
   };
   
-  before(function() {
-    if(!fs.existsSync(pathToDbs)) {
-      fs.mkdirSync(pathToDbs, '0766');
-    }
-  });
-  
-  beforeEach(function() {
+  beforeEach(function(done) {
     if(fs.existsSync(pathToTestDb)) {
       deleteFolderRecursive(pathToTestDb);    
     }
-    fs.mkdirSync(pathToTestDb, '0766');
+    mkdirp(pathToTestDb, function() {
+      done();
+    });
   });
   
   beforeEach(function() {
