@@ -26,9 +26,9 @@ describe('NPMZor', function() {
   it('Should return a valid index page', function(done) {
     restler.json(endPoint + '/deride')
     .on('complete', function(result, res) {
-      assert.equal(result instanceof Error, false);
-      assert.equal(result._id, 'deride');
-      assert.equal(res.statusCode, 200);
+      assert.equal(result instanceof Error, false, result);
+      assert.equal(res.statusCode, 200, 'Incorrect status code returned: ' + res.statusCode);
+      assert.equal(result._id, 'deride', 'Result returned did not have an _id of deride');
       done();
     });
   });
