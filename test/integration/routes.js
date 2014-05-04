@@ -37,16 +37,14 @@ describe('Routing Configuration (routes)', function() {
   // { url: 'mkdirp/-/mkdirp-1.0.10-1.tgz', code: 200 }
   // Need to accomodate the above tests better... had to remove for now
   var urls = [
-    { url: 'some-module', code: 200 },
-    { url: 'some_module', code: 200 },
-    { url: 's0m3_m0dul3', code: 200 },
-    { url: 'some-module/0.1.0', code: 200 },
-    { url: 'some-module/0.3.4', code: 200 },
-    { url: 'some-module/12.1.0', code: 404 },
-    { url: 'some-module/12.1.20', code: 404 },
-    { url: 'some-module/-/some-module.tgz', code: 404 },
-    { url: 'some-module/-/some-module.zip', code: 404 },
-    { url: 'some-module/some-module.tgz', code: 404 }
+    { url: 'mkdirp', code: 200 },
+    { url: 'mkdirp/0.1.0', code: 200 },
+    { url: 'mkdirp/0.3.4', code: 200 },
+    { url: 'mkdirp/12.1.0', code: 404 },
+    { url: 'mkdirp/12.1.20', code: 404 },
+    { url: 'mkdirp/-/some-module.tgz', code: 404 },
+    { url: 'mkdirp/-/some-module.zip', code: 404 },
+    { url: 'mkdirp/some-module.tgz', code: 404 }
   ];
 
   _.forEach(urls, function(url) {
