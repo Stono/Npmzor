@@ -26,5 +26,5 @@ mkdirp(config.cache.db, function(err) {
   var server = http.createServer(routes.requestHandler);
   
   server.listen(config.port);
-  log.debug('NPMZor started on port ' + config.port);
+  log.debug('NPMZor started at: ' + config.url);
 });
