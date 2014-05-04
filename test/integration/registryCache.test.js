@@ -63,7 +63,7 @@ describe('NPM Registry Cache', function() {
     });
   });
   
-  it('Should not return an index that has passed its expiry', function(done) {
+  it.only('Should not return an index that has passed its expiry', function(done) {
     mockConfig.cache.timeout = 0;
     registryCache.addIndex(contents, function(err) {
       assert.equal(err, undefined, 'There was an error inserting the cache item');
