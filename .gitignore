@@ -3,3 +3,4 @@ coverage.html
 *.log
 db/
 cache/
+*.tgz
