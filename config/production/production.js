@@ -39,5 +39,7 @@ if(process.env.http_proxy) {
 if(process.env.https_proxy) {
   productionConfig.http.proxy.https = extractUrl(process.env.https_proxy);
 };
-
+if (process.env.no_proxy) {
+  productionConfig.http.proxy.noProxy =  process.env.noProxy;
+};
 module.exports = productionConfig;

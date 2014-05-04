@@ -1,7 +1,7 @@
 {
   "name": "Npmzor",
   "description": "An NPM Proxy Server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/Stono/Npmzor",
   "author": {
     "name": "Karl Stoney",

@@ -85,6 +85,39 @@ describe('HTTP Utilities (getHttpOpts)', function() {
     done();
   });
 
+  it('Should not return proxy options when host is in no_proxy', function(done) {
+    var config   = mockConfig.getBothProxyConfig();
+    config.http.proxy.noProxy = 'registry.npmjs.org';
+    var httpUtil = new HttpUtil(config, null);
+    var expected = getOptsExpectedWithNoProxy();
+
+    var result   = httpUtil.getHttpOpts('https://registry.npmjs.org/mkdirp');
+    assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    done();
+  });
+  
+  it('Should not return proxy options when wildcard host is in no_proxy', function(done) {
+    var config   = mockConfig.getBothProxyConfig();
+    config.http.proxy.noProxy = '*.npmjs.org';
+    var httpUtil = new HttpUtil(config, null);
+    var expected = getOptsExpectedWithNoProxy();
+
+    var result   = httpUtil.getHttpOpts('https://registry.npmjs.org/mkdirp');
+    assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    done();
+  });
+  
+  it('Should return proxy options when host is not in no_proxy but others are', function(done) {
+    var config   = mockConfig.getBothProxyConfig();
+    config.http.proxy.noProxy = 'some-domain,*.another.org';
+    var httpUtil = new HttpUtil(config, null);
+    var expected = getOptsExpectedWithProxy('https');
+
+    var result   = httpUtil.getHttpOpts('https://registry.npmjs.org/mkdirp');
+    assert.equal(JSON.stringify(result), JSON.stringify(expected));
+    done();
+  });
+  
   var getOptsExpectedWithProxy = function(protocol) {
     return {
       method: 'GET',
