@@ -50,7 +50,7 @@ describe('NPM Registry Cache', function() {
     var Db = require('tingodb')().Db;
     var db = new Db(pathToTestDb, {});
     mockConfig.cache.timeout = 60;
-    registryCache = new RegistryCache(mockConfig, db);
+    registryCache = new RegistryCache(mockConfig, db, fs);
   });
   
   it('Should add an index to its cache', function(done) {
@@ -63,12 +63,24 @@ describe('NPM Registry Cache', function() {
     });
   });
   
-  it.only('Should not return an index that has passed its expiry', function(done) {
+  it('Should not return an index that has passed its expiry', function(done) {
     mockConfig.cache.timeout = 0;
     registryCache.addIndex(contents, function(err) {
       assert.equal(err, undefined, 'There was an error inserting the cache item');
       registryCache.getIndex('mkdirp', function(err, index) {
         assert.equal(index, undefined);
+        done();
+      });
+    });
+  });
+  
+  it.only('Should add a tgz file from its cache', function(done) {
+    var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
+    registryCache.addModule('index', 'name', '0.0.1', path, function(err) {
+      assert.equal(err, undefined, err);
+      registryCache.getModule('index', 'name', '0.0.1', function(err, path) {
+        assert.equal(err, undefined, err);
+        assert.equal(path, mockConfig.cache.tgz + '/index/name/0.0.1');
         done();
       });
     });
