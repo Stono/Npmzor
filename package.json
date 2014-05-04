@@ -29,22 +29,24 @@
     "test": "grunt mochaTest"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt": "~0.4.4",
-    "sinon": "~1.9.1",
-    "grunt-notify": "~0.2.20",
-    "grunt-mocha-test": "~0.10.2",
+    "grunt-contrib-jshint": "0.10.0",
+    "grunt-contrib-nodeunit": "0.2.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt": "0.4.4",
+    "sinon": "1.9.1",
+    "grunt-notify": "0.2.20",
+    "grunt-mocha-test": "0.10.2",
     "grunt-blanket": "0.0.8",
-    "blanket": "~1.1.6",
-    "deride": "^0.1.9",
-    "restler": "^3.2.2"
+    "blanket": "1.1.6",
+    "deride": "0.1.9",
+    "restler": "3.2.2"
   },
   "keywords": [],
   "dependencies": {
-    "lodash": "^2.4.1",
-    "director": "^1.2.3",
-    "minilog": "^2.0.4"
+    "lodash": "2.4.1",
+    "director": "1.2.3",
+    "minilog": "2.0.4",
+    "tingodb": "0.2.1",
+    "date-utils": "^1.2.15"
   }
 }

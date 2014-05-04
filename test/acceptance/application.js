@@ -44,6 +44,15 @@ describe('NPMZor', function() {
     });
   });
 
+  it('Should return a 404 when requestinga package version that doesnt exist', function(done) {
+   restler.get(endPoint + '/deride/-/deride-0.0.7.tgz')
+    .on('complete', function(result, res) {
+      assert.equal(result instanceof Error, false);
+      assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+  
   it('Should return a module when the request is valid', function(done) {
     var target  = '/tmp/' + Date.now().toString(12);
     var file    = fs.createWriteStream(target);
