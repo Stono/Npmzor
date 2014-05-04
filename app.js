@@ -6,10 +6,15 @@
 var http            = require('http');
 var config          = require('./config');
 var log             = new require('./lib/logger').Logger(config, 'App');
+var fs              = require('fs');
 
 // Cache DB setup
+log.debug('Initialising Cache DB at: ' + config.cache.db);
+if(!fs.existsSync(config.cache.db)) {
+  fs.mkdirSync(config.cache.db, '0766');
+}
 var Db = require('tingodb')().Db;
-var db = new Db('./db/' + process.env.ENV, {});
+var db = new Db(config.cache.db, {});
 
 var RegistryManager = require('./lib/registryManager').RegistryManager;
 var RegistryCache   = require('./lib/registryCache').RegistryCache;
