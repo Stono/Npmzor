@@ -1,17 +1,3 @@
-NOTE: Still under development, in need of a nice 'Green Refactor'
-
-Working:
-  - Multiple NPM registry end points (configured in config/env/env.js)
-  - Caching of both Index queries and TGZ packages
-  - External proxy connections honor http_proxy, https_proxy and no_proxy env variables
-  
-To be done:
-  - SHA checking of cached packages against the latest index (corruption and new version protection)
-  - Exposing an API to allow hosting of internal modules
-  - Logging to file (only console works at the moment)
-  - Converting into /bin NPM module 
-  - Publishing on registry.npmjs.org
-
 # Npmzor 
 [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) 
 [![Coverage Status](https://coveralls.io/repos/Stono/Npmzor/badge.png?branch=develop)](https://coveralls.io/r/Stono/Npmzor?branch=develop)
@@ -24,6 +10,21 @@ The purpose of this project is to:
   - Allow internal servers which do not have outbound internet access to connect to an internal npm registry which will proxy requests out.
   - Enable the hosting of internal npm modules which form part of our CI environment.
   - Allow individual users to host their own local copy of NPMZor should they so choose, to enable an even faster local cache.
+
+## Important
+NOTE: Still under development, in need of a nice 'Green Refactor'
+
+Working:
+  - Multiple NPM registry end points (configured in config/env/env.js)
+  - Caching of both Index queries and TGZ packages
+  - External proxy connections honor http_proxy, https_proxy and no_proxy env variables
+
+To be done:
+  - SHA checking of cached packages against the latest index (corruption and new version protection)
+  - Exposing an API to allow hosting of internal modules
+  - Logging to file (only console works at the moment)
+  - Converting into /bin NPM module
+  - Publishing on registry.npmjs.org
   
 ## Background
 This project came about as the company I work for have a rather complicated proxy setup which makes development and CI environments a bit of a nightmare to manage.
