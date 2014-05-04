@@ -4,6 +4,11 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    shell: {
+      coverage: {
+        command: './node_modules/.bin/istanbul cover _mocha -- -R spec test/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+      }
+    },
     mochaTest: {
       unit: {
         options: {
@@ -27,7 +32,7 @@ module.exports = function(grunt) {
         options: {
            reporter: 'html-cov',
            quiet: true,
-           captureFile: 'coverage.html'
+           captureFile: 'coverage/coverage.html'
         },
         src: ['test/**/*.js']
       }
@@ -71,8 +76,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-blanket');
   grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']);
-  grunt.registerTask('travis', ['jshint', 'mochaTest:unit', 'mochaTest:integration']);
+  grunt.registerTask('travis', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'shell:coverage']);
 };

@@ -39,7 +39,10 @@
     "grunt-blanket": "0.0.8",
     "blanket": "1.1.6",
     "deride": "0.1.9",
-    "restler": "3.2.2"
+    "restler": "3.2.2",
+    "grunt-shell": "0.7.0",
+    "coveralls": "2.10.0",
+    "istanbul": "0.2.8"
   },
   "keywords": [],
   "dependencies": {
