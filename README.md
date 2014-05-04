@@ -42,11 +42,21 @@ This project has been developed using Test Driven Development, and also practice
 
 I also use the excellent mocking library Deride (https://github.com/REAANDREW/deride).
 
-Therefore if you wish to contribute, please fork the repo, follow these standards, and submit a pull request. 
+Further to this, the branching strategy is gitflow (https://github.com/nvie/gitflow), so please ensure you do your work in feature branches first.
+
+In summary:
+  - Clone the repo
+  - NPM install
+  - Create a feature branch
+  - Write some tests
+  - Write some code
+  - Run your tests 
+  - Finish your feature branch
+  - Submit a pull request to me
 
 You can run tests with the following:
 ```
-grunt
+grunt (this will run the full suite)
 grunt mochaTest:unit
 grunt mochaTest:integration
 grunt mochaTest:acceptance
