@@ -1,4 +1,5 @@
 NOTE: Still under development, in need of a nice 'Green Refactor'
+
 Working:
   - Multiple NPM registry end points (configured in config/env/env.js)
   - Caching of both Index queries and TGZ packages
