@@ -10,7 +10,7 @@ To be done:
   - Logging to file (only console works at the moment)
   - Converting into /bin NPM module
 
-# Npmzor [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor)
+# Npmzor [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) [![Dependency Status](https://david-dm.org/Stono/Npmzor.svg)](https://david-dm.org/Stono/Npmzor)
 NPMZor is a aggregating, caching proxy for NPM.
 The purpose of this project is to:
   - Enable development teams to point to a single NPM registry, which will search multiple registries for them.
