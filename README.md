@@ -16,6 +16,7 @@ To be done:
 [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) 
 [![Coverage Status](https://coveralls.io/repos/Stono/Npmzor/badge.png)](https://coveralls.io/r/Stono/Npmzor)
 [![Dependency Status](https://david-dm.org/Stono/Npmzor.svg)](https://david-dm.org/Stono/Npmzor)
+
 NPMZor is a aggregating and caching NPM Registry server.
 The purpose of this project is to:
   - Enable development teams to point to a single NPM registry, which will search multiple external registries for them.
