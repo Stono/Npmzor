@@ -5,10 +5,11 @@ Working:
   - Caching of both Index queries and TGZ packages
 
 To be done:
-  - SHA checking of cached packages against the latest index
+  - SHA checking of cached packages against the latest index (corruption and new version protection)
   - Configuration of proxy by NPM endpoint rather than globally
   - Logging to file (only console works at the moment)
-  - Converting into /bin NPM module
+  - Converting into /bin NPM module 
+  - Publishing on registry.npmjs.org
 
 # Npmzor [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) [![Dependency Status](https://david-dm.org/Stono/Npmzor.svg)](https://david-dm.org/Stono/Npmzor)
 NPMZor is a aggregating, caching proxy for NPM.
@@ -52,8 +53,8 @@ grunt mochaTest:acceptance
 ```
 
 ## Release History
-0.1.0 - Intial Release
-0.1.1 - Basic NPM proxying and caching completed.
+  - 0.1.1 - Basic NPM proxying and caching completed.
+  - 0.1.0 - Intial Release
 
 ## License
 Copyright (c) 2014 Karl Stoney  
