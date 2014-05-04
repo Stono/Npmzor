@@ -3,9 +3,10 @@ var assert     = require('assert');
 var http       = require('http');
 var restler    = require('restler');
 var _          = require('lodash');
-var mockConfig = require('../mockConfig').getNoProxyConfig();
 var deride     = require('deride');
 var fs         = require('fs');
+
+var mockConfig = require('../mockConfig').getNoProxyConfig();
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
 describe('Routing Configuration (routes)', function() {

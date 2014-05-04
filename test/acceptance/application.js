@@ -1,11 +1,11 @@
 'use strict';
 var restler    = require('restler');
 var assert     = require('assert');
-var config     = require('../../config');
 var http       = require('http');
 var fs         = require('fs');
-var crypto     = require('../../lib/crypto');
 
+var config     = require('../../config');
+var crypto     = require('../../lib/crypto');
 /*
  * Decided to have these tests hit the actual
  * npmjs.org registry, as then we know fo' sho'

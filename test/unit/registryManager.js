@@ -1,7 +1,7 @@
 'use strict';
-var http            = require('http');
 var assert          = require('assert');
 var deride          = require('deride');
+
 var NpmRegistry     = require('../../lib/npmRegistry').NpmRegistry;
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 var RegistryCache   = require('../../lib/registryCache').RegistryCache;
@@ -16,7 +16,7 @@ describe('Registry Manager (registryManager)', function() {
   var registryRoot = 'registry1';
 
   beforeEach(function() {
-    var httpUtil    = new HttpUtil(mockConfig, http);
+    var httpUtil    = new HttpUtil(mockConfig);
     npmRegistry     = new NpmRegistry(mockConfig, httpUtil, registryRoot);
     
     var mockDb      = deride.stub(['collection']);

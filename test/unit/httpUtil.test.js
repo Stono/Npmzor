@@ -1,9 +1,9 @@
 'use strict';
 var assert     = require('assert');
 var http       = require('http');
+var fs         = require('fs');
 var HttpUtil   = require('../../lib/httpUtil').HttpUtil;
 var mockConfig = require('../mockConfig');
-var fs         = require('fs');
 
 describe('HTTP Utilities (getHttpOpts)', function() {
 
@@ -159,7 +159,7 @@ describe('HTTP Utilities (getJsonUrl)', function() {
   });
 
   it('Should get a url and return a valid JSON object', function(done) {
-    var httpUtil  = new HttpUtil(config, http);
+    var httpUtil  = new HttpUtil(config);
     httpUtil.getJsonUrl(config.url, function(err, json) {
       assert.equal(err, null);
       assert.equal(json._id, 'mkdirp');
@@ -186,7 +186,7 @@ describe('HTTP Utilities (getBinaryUrl)', function() {
   });
 
   it('Should get a tgz file and save it to a temporary location', function(done) {
-    var httpUtil  = new HttpUtil(config, http);
+    var httpUtil  = new HttpUtil(config);
     var target    = config.temp + '/test-package.tgz';
     if(fs.existsSync(target)) {
       fs.unlinkSync(target);

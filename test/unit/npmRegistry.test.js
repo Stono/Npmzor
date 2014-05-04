@@ -1,12 +1,12 @@
 'use strict';
 var assert      = require('assert');
-var NpmRegistry = require('../../lib/npmRegistry').NpmRegistry;
-var HttpUtil    = require('../../lib/httpUtil').HttpUtil;
-var http        = require('http');
-var mockConfig  = require('../mockConfig');
 var fs          = require('fs');
 var deride      = require('deride');
 var _           = require('lodash');
+
+var NpmRegistry = require('../../lib/npmRegistry').NpmRegistry;
+var HttpUtil    = require('../../lib/httpUtil').HttpUtil;
+var mockConfig  = require('../mockConfig');
 
 describe('NPM Registry (npmRegistry)', function() {
   var endpoint   = 'some-fake-endpoint';
@@ -14,7 +14,7 @@ describe('NPM Registry (npmRegistry)', function() {
   var config     = mockConfig.getNoProxyConfig();
 
   it('Should return the path of a tgz package that has been downloaded', function(done) {
-    var httpUtil   = deride.wrap(new HttpUtil(config, http));
+    var httpUtil   = deride.wrap(new HttpUtil(config));
     httpUtil.setup.getBinaryUrl.toCallbackWith([
       undefined, 
       'useless junk'
@@ -31,7 +31,7 @@ describe('NPM Registry (npmRegistry)', function() {
   });
 
   it('Should proxy package index requests to the external registry and return valid JSON', function(done) {
-    var httpUtil   = deride.wrap(new HttpUtil(config, http));
+    var httpUtil   = deride.wrap(new HttpUtil(config));
     httpUtil.setup.getJsonUrl.toCallbackWith([
       undefined, 
       _.clone(sampleData, true)
@@ -48,7 +48,7 @@ describe('NPM Registry (npmRegistry)', function() {
 
     
   it('Should rewrite result with address of this registry', function(done) {
-    var httpUtil   = deride.wrap(new HttpUtil(config, http));
+    var httpUtil   = deride.wrap(new HttpUtil(config));
     httpUtil.setup.getJsonUrl.toCallbackWith([
       undefined, 
       _.clone(sampleData, true)
