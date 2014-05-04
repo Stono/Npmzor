@@ -15,7 +15,7 @@ var crypto     = require('../../lib/crypto');
  * be hitting external stuff really. Just enable it if
  * you want to test that the app works against an actual repo
  */
-describe('NPMZor against registry.npmjs.org', function() {
+describe('NPMZor outside in', function() {
   
   // process.env.ENV = 'test';
   var endPoint = config.url,
@@ -40,7 +40,11 @@ describe('NPMZor against registry.npmjs.org', function() {
     fakeNpmEndpoint = http.createServer(function (req, res) {
       res.writeHead(retStatus, {'Content-Type': contentType});
       res.end(content);
-    }).listen(6699, done);
+    }).listen(6699, function() {
+      setTimeout(function() {
+        done()
+      }, 1000);
+    });
   });
   
   after(function() {
