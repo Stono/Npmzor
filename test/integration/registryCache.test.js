@@ -11,6 +11,7 @@ var assert = require('assert');
 var mkdirp = require('mkdirp');
 var RegistryCache = require('../../lib/registryCache').RegistryCache;
 var mockConfig    = require('../mockConfig').getNoProxyConfig();
+var testUtil   = new require('../testUtil').TestUtil(mockConfig);
 
 describe('NPM Registry Cache', function() {
   var registryCache;
@@ -19,35 +20,17 @@ describe('NPM Registry Cache', function() {
 
   var contents = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     contents = JSON.parse(contents);
-  
-  var deleteFolderRecursive = function(path) {
-    if( fs.existsSync(path) ) {
-      fs.readdirSync(path).forEach(function(file){
-        var curPath = path + '/' + file;
-        if(fs.lstatSync(curPath).isDirectory()) { // recurse
-          deleteFolderRecursive(curPath);
-        } else { // delete file
-          fs.unlinkSync(curPath);
-        }
-      });
-      fs.rmdirSync(path);
-    }
-  };
-  
+    
   beforeEach(function(done) {
-    if(fs.existsSync(pathToTestDb)) {
-      deleteFolderRecursive(pathToTestDb);    
-    }
+    testUtil.clearCache();
+    testUtil.clearDb();
     mkdirp(pathToTestDb, function() {
+      var Db = require('tingodb')().Db;
+      var db = new Db(pathToTestDb, {});
+      mockConfig.cache.timeout = 60;
+      registryCache = new RegistryCache(mockConfig, db, fs);
       done();
     });
-  });
-  
-  beforeEach(function() {
-    var Db = require('tingodb')().Db;
-    var db = new Db(pathToTestDb, {});
-    mockConfig.cache.timeout = 60;
-    registryCache = new RegistryCache(mockConfig, db, fs);
   });
   
   it('Should add an index to its cache', function(done) {

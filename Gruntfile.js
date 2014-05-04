@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     shell: {
       coverage: {
-        command: './node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/unit/*.js test/integration/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+        command: './node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/**/*.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
       }
     },
     mochaTest: {
@@ -79,6 +79,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mochaTest:unit', 'mochaTest:integration', 'mochaTest:acceptance']);
+  grunt.registerTask('default', ['jshint', 'mochaTest']);
   grunt.registerTask('travis', ['jshint', 'shell:coverage']);
 };

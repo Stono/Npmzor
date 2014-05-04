@@ -7,7 +7,7 @@ var productionConfig = {
   cache: {
     // Timeout is in seconds
     timeout: (60 * 60),
-    db: './db/' + process.env.ENV,
+    db: './db/' + (process.env.ENV || 'dev'),
     tgz: './cache'
   },
   logging: {

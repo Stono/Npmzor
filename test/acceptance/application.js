@@ -5,6 +5,7 @@ var http       = require('http');
 var fs         = require('fs');
 
 var config     = require('../../config');
+var testUtil   = new require('../testUtil').TestUtil(config);
 var crypto     = require('../../lib/crypto');
 /*
  * Decided to have these tests hit the actual
@@ -18,35 +19,54 @@ describe('NPMZor against registry.npmjs.org', function() {
   
   // process.env.ENV = 'test';
   var endPoint = config.url,
-      app;
-  config.registries = ['http://registry.npmjs.org'];
-  
-  before(function(done) {
-    app = require('../../app.js');
-    done();
+      app,
+      fakeNpmEndpoint;
+      
+  var retStatus = 200,
+      contentType = 'application/json',
+      content;
+      
+  config.registries = ['http://127.0.0.1:6699'];
+
+  beforeEach(function() {
+    testUtil.clearCache();
   });
   
-  after(function(done) {
-    app().close(done);
+  before(function(done) {
+    testUtil.clearCache();
+    testUtil.clearDb();
+    app = require('../../app.js');
+    
+    fakeNpmEndpoint = http.createServer(function (req, res) {
+      res.writeHead(retStatus, {'Content-Type': contentType});
+      res.end(content);
+    }).listen(6699, done);
+  });
+  
+  after(function() {
+    fakeNpmEndpoint.close();
+    app().close();
   });
   
   this.timeout(3000);
 
   it('Should return a valid index page', function(done) {
-    restler.json(endPoint + '/deride')
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    restler.json(endPoint + '/mkdirp')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false, result);
       assert.equal(res.statusCode, 200, 'Incorrect status code returned: ' + res.statusCode);
-      assert.equal(result._id, 'deride', 'Result returned did not have an _id of deride');
+      assert.equal(result._id, 'mkdirp', 'Result returned did not have an _id of deride');
       done();
     });
   });
   
   it('Should return a valid specific version page', function(done) {
-    restler.json(endPoint + '/deride/0.1.0')
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    restler.json(endPoint + '/mkdirp/0.1.0')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);
-      assert.equal(result.name, 'deride');
+      assert.equal(result.name, 'mkdirp');
       assert.equal(result.version, '0.1.0');
       assert.equal(res.statusCode, 200);
       done();
@@ -54,7 +74,9 @@ describe('NPMZor against registry.npmjs.org', function() {
   });
 
   it('Should return a 404 when requestinga package version that doesnt exist', function(done) {
-   restler.get(endPoint + '/deride/-/deride-0.0.7.tgz')
+    content = null;
+    retStatus = 404;
+    restler.get(endPoint + '/deride/-/deride-0.0.7.tgz')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);
       assert.equal(res.statusCode, 404);
@@ -65,12 +87,14 @@ describe('NPMZor against registry.npmjs.org', function() {
   it('Should return a module when the request is valid', function(done) {
     var target  = '/tmp/' + Date.now().toString(12);
     var file    = fs.createWriteStream(target);
+    retStatus   = 200;
+    content     = fs.readFileSync(__dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz');
     http.get(endPoint + '/deride/-/deride-0.1.0.tgz', function(response) {
       response.pipe(file);
       file.on('finish', function() {
         file.close(function() {
           crypto.sha1(target, function(error, sum) {
-            assert.equal(sum, 'e00f8de0eeb0da49ae51ad926742d4ab44fc1c32');
+            assert.equal(sum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
             done();
           });
         });
@@ -79,6 +103,8 @@ describe('NPMZor against registry.npmjs.org', function() {
   });
 
   it('Should return a 404 on an invalid index page', function(done) {
+    content = null;
+    retStatus = 404;
     restler.get(endPoint + '/this-repo-doesnt-exist')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);
