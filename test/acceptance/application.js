@@ -42,7 +42,7 @@ describe('NPMZor outside in', function() {
       res.end(content);
     }).listen(6699, function() {
       setTimeout(function() {
-        done()
+        done();
       }, 1000);
     });
   });
