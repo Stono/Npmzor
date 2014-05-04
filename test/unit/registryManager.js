@@ -24,7 +24,7 @@ describe('Registry Manager (registryManager)', function() {
     mockCache.setup.getIndex.toCallbackWith([undefined, null]);
     mockCache.setup.addIndex.toCallbackWith([undefined, null]);
     
-    registryManager = new RegistryManager(mockConfig, mockCache);    
+    registryManager = new RegistryManager(mockConfig, mockCache, httpUtil);    
   });
   
   it('Should accept a new Registry', function(done) {

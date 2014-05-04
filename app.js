@@ -19,9 +19,11 @@ mkdirp(config.cache.db, function(err) {
   
   var RegistryManager = require('./lib/registryManager').RegistryManager;
   var RegistryCache   = require('./lib/registryCache').RegistryCache;
+  var HttpUtil        = require('./lib/httpUtil').HttpUtil;
   
+  var httpUtil        = new HttpUtil(config, http);
   var registryCache   = new RegistryCache(config, db, fs);
-  var registryManager = new RegistryManager(config, registryCache);
+  var registryManager = new RegistryManager(config, registryCache, httpUtil);
   var routes = new require('./lib/routes').Routes(config, registryManager, fs);
   var server = http.createServer(routes.requestHandler);
   
