@@ -14,7 +14,7 @@ var crypto     = require('../../lib/crypto');
  * be hitting external stuff really. Just enable it if
  * you want to test that the app works against an actual repo
  */
-describe.skip('NPMZor against registry.npmjs.org', function() {
+describe('NPMZor against registry.npmjs.org', function() {
   
   // process.env.ENV = 'test';
   var endPoint = config.url;

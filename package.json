@@ -26,7 +26,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt mochaTest"
+    "test": "grunt travis"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "0.10.0",
