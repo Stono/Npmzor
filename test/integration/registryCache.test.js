@@ -74,7 +74,7 @@ describe('NPM Registry Cache', function() {
     });
   });
   
-  it.only('Should add a tgz file from its cache', function(done) {
+  it('Should add a tgz file from its cache', function(done) {
     var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
     registryCache.addModule('index', 'name', '0.0.1', path, function(err) {
       assert.equal(err, undefined, err);

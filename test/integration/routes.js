@@ -53,7 +53,6 @@ describe('Routing Configuration (routes)', function() {
     it('Should return status ' + url.code + ' for ' + url.url, function(done) {
       restler.get(mockConfig.url + '/' + url.url)
       .on('complete', function(result, res) {
-        assert.equal(result instanceof Error, false, result.toString());
         assert.equal(res.statusCode, url.code);
         done();
       });

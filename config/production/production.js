@@ -11,7 +11,7 @@ var productionConfig = {
     tgz: './cache'
   },
   logging: {
-    console: false,
+    console: true,
     file: true
   },
   http: {

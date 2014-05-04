@@ -19,7 +19,7 @@ var db = new Db(config.cache.db, {});
 var RegistryManager = require('./lib/registryManager').RegistryManager;
 var RegistryCache   = require('./lib/registryCache').RegistryCache;
 
-var registryCache   = new RegistryCache(config, db);
+var registryCache   = new RegistryCache(config, db, fs);
 var registryManager = new RegistryManager(config, registryCache);
 var routes = new require('./lib/routes').Routes(config, registryManager);
 var server = http.createServer(routes.requestHandler);
