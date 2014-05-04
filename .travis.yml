@@ -5,3 +5,5 @@ before_script:
   - npm install -g grunt-cli
 env:
   ENV=test
+script:
+  - "grunt travis"
