@@ -13,7 +13,7 @@ To be done:
   - Publishing on registry.npmjs.org
 
 # Npmzor [![Build Status](https://secure.travis-ci.org/Stono/Npmzor.png?branch=develop)](http://travis-ci.org/Stono/Npmzor) [![Dependency Status](https://david-dm.org/Stono/Npmzor.svg)](https://david-dm.org/Stono/Npmzor)
-NPMZor is a aggregating, caching proxy for NPM.
+NPMZor is a aggregating and caching NPM Registry server.
 The purpose of this project is to:
   - Enable development teams to point to a single NPM registry, which will search multiple external registries for them.
   - Enable caching of recent external registry searches, to speed up npm installs, and also allow some functionality if the defined registries are flakey/down.
