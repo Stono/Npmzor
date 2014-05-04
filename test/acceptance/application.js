@@ -10,12 +10,16 @@ var crypto     = require('../../lib/crypto');
  * Decided to have these tests hit the actual
  * npmjs.org registry, as then we know fo' sho'
  * that all is good.
+ * However they're set to skip because Travis shouldn't
+ * be hitting external stuff really. Just enable it if
+ * you want to test that the app works against an actual repo
  */
-describe('NPMZor', function() {
+describe.skip('NPMZor against registry.npmjs.org', function() {
   
   // process.env.ENV = 'test';
   var endPoint = config.url;
-
+  config.registries = ['http://registry.npmjs.org'];
+  
   before(function(done) {
     require('../../app.js');
     done();
