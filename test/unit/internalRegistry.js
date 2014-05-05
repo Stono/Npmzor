@@ -30,9 +30,10 @@ describe.only('Internal NPM Registry', function() {
       assert.equal(err, undefined);
       assert.equal(name, 'simple-empty-app');
       assert.equal(version, '0.0.1');
-      internalRegistry.getModule('simple-empty-app', function(err, path) {
+      internalRegistry.getModuleIndex('simple-empty-app', function(err, index) {
         assert.equal(err, undefined);
-        assert(path !== null);
+        assert.equal(index['dist-tags'].latest, '0.0.1');
+        assert.equal(index.versions['0.0.1'].dist.shasum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
         done();
       });
     });
