@@ -9,7 +9,7 @@ var fs         = require('fs');
 var mockConfig = require('../mockConfig').getNoProxyConfig();
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
-describe.only('Routing Configuration (routes)', function() {
+describe('Routing Configuration (routes)', function() {
   var server;
 
   before(function(done) {
