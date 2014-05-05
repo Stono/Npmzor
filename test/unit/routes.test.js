@@ -9,7 +9,7 @@ var fs         = require('fs');
 var mockConfig = require('../mockConfig').getNoProxyConfig();
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
-describe('Routing Configuration (routes)', function() {
+describe.only('Routing Configuration (routes)', function() {
   var server;
 
   before(function(done) {
@@ -64,12 +64,13 @@ describe('Routing Configuration (routes)', function() {
     { url: 'mkdirp/12.1.20', code: 404 },
     { url: 'mkdirp/-/some-module.tgz', code: 404 },
     { url: 'mkdirp/-/some-module.zip', code: 404 },
-    { url: 'mkdirp/some-module.tgz', code: 404 }
+    { url: 'mkdirp/some-module.tgz', code: 404 },
+    { url: 'simple-empty-app', code: 200, method: 'put'}
   ];
 
   _.forEach(urls, function(url) {
     it('Should return status ' + url.code + ' for ' + url.url, function(done) {
-      restler.get(mockConfig.url + '/' + url.url)
+      restler[url.method || 'get'](mockConfig.url + '/' + url.url)
       .on('complete', function(result, res) {
         assert.equal(res.statusCode, url.code);
         done();
