@@ -54,7 +54,6 @@ describe('Registry Manager Internal Registry Interaction', function() {
       registryManager.getModule('simple-empty-app', 'simple-empty-app', '0.0.1', function(err, path) {
         assert.equal(err, undefined, err);
         assert(path.indexOf('internal/simple-empty-app/simple-empty-app/0.0.1') > -1);
-        console.log(path);
         done();
       });
     });

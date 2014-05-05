@@ -76,7 +76,17 @@ describe('NPMZor outside in', function() {
     });
   });
 
-  it('Should return a 404 when requestinga package version that doesnt exist', function(done) {
+  it('Should return a 404 for an invalid specific version page', function(done) {
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    restler.json(endPoint + '/mkdirp/0.0.0')
+    .on('complete', function(result, res) {
+      assert.equal(result instanceof Error, false);
+      assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+  
+  it('Should return a 404 when requesting a package version that doesnt exist', function(done) {
     content = null;
     retStatus = 404;
     restler.get(endPoint + '/deride/-/deride-0.0.7.tgz')
@@ -105,7 +115,7 @@ describe('NPMZor outside in', function() {
     });
   });
 
-  it.only('Should accept a TGZ module PUT to it', function(done) {
+  it('Should accept a TGZ module PUT to it', function(done) {
     var sampleTgz = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
     restler.put(endPoint + '/simple-empty-app', {
       multipart: true,
