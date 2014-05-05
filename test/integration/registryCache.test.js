@@ -17,11 +17,10 @@ describe('NPM Registry Cache', function() {
   var registryCache;
 
   var contents = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
-    contents = JSON.parse(contents);
+  contents = JSON.parse(contents);
     
   beforeEach(function(done) {
-    testUtil.clearCache();
-    testUtil.clearDb();
+    testUtil.clearAll();
     mkdirp(mockConfig.db, function() {
       var Db = require('tingodb')().Db;
       var db = new Db(mockConfig.db, {});
@@ -29,6 +28,10 @@ describe('NPM Registry Cache', function() {
       registryCache = new RegistryCache(mockConfig, db, fs);
       done();
     });
+  });
+  
+  after(function() {
+    //testUtil.clearAll();
   });
   
   it('Should add an index to its cache', function(done) {
