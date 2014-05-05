@@ -113,7 +113,7 @@ describe('NPMZor outside in', function() {
         package: restler.file(sampleTgz, null, 592, null, 'application/octet-stream')
       }
     }).on('complete', function(data, res) {
-      console.log(data);
+      assert.equal(data.response, 'simple-empty-app version 0.0.1 recieved and indexed.');
       assert.equal(res.statusCode, 200);
       done();
     });
