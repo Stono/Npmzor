@@ -19,11 +19,11 @@ var log             = new Logger(config, 'App');
 var app;
 
 // Cache DB setup
-log.debug('Initialising Cache DB at: ' + config.cache.db);
+log.debug('Initialising DB at: ' + config.db);
 
-mkdirp(config.cache.db, function(err) {
+mkdirp(config.db, function(err) {
   if (err) { log.error(err) }
-  var db = new Db(config.cache.db, {});
+  var db = new Db(config.db, {});
     
   var httpUtil        = new HttpUtil(config);
   var registryCache   = new RegistryCache(config, db);

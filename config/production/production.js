@@ -4,13 +4,13 @@ var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
   temp: '/tmp',
+  db: './db/' + (process.env.ENV || 'dev'),
   internal: {
     tgz: './internal'
   },
   cache: {
     // Timeout is in seconds
     timeout: (60 * 60),
-    db: './db/' + (process.env.ENV || 'dev'),
     tgz: './cache'
   },
   logging: {

@@ -22,9 +22,9 @@ describe('NPM Registry Cache', function() {
   beforeEach(function(done) {
     testUtil.clearCache();
     testUtil.clearDb();
-    mkdirp(mockConfig.cache.db, function() {
+    mkdirp(mockConfig.db, function() {
       var Db = require('tingodb')().Db;
-      var db = new Db(mockConfig.cache.db, {});
+      var db = new Db(mockConfig.db, {});
       mockConfig.cache.timeout = 60;
       registryCache = new RegistryCache(mockConfig, db, fs);
       done();

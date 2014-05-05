@@ -20,14 +20,26 @@ var TestUtil = function(config) {
   var clearCache = function() {
     deleteFolderRecursive(config.cache.tgz);
   };
+  
+  var clearInternal = function() {
+    deleteFolderRecursive(config.internal.tgz);
+  };
 
   var clearDb = function() {
-    deleteFolderRecursive(config.cache.db);  
+    deleteFolderRecursive(config.db);  
+  };
+  
+  var clearAll = function() {
+    clearCache();
+    clearDb();
+    clearInterval();
   };
   
   return Object.freeze({
     clearCache: clearCache,
-    clearDb: clearDb
+    clearInternal: clearInternal,
+    clearDb: clearDb,
+    clearAll: clearAll
   });
 };
 
