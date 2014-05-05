@@ -25,7 +25,7 @@ describe('NPM Registry Cache', function() {
       var Db = require('tingodb')().Db;
       var db = new Db(mockConfig.db, {});
       mockConfig.cache.timeout = 60;
-      registryCache = new RegistryCache(mockConfig, db, fs);
+      registryCache = new RegistryCache(mockConfig, db);
       done();
     });
   });
