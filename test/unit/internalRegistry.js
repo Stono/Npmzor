@@ -9,12 +9,9 @@ describe.only('Internal NPM Registry', function() {
   
   var internalRegistry;
   
-  before(function() {
+  beforeEach(function(done) {
     testUtil.clearCache();
     testUtil.clearDb();
-  });
-  
-  beforeEach(function(done) {
     mkdirp(mockConfig.cache.db, function() {
       var Db = require('tingodb')().Db;
       var db = new Db(mockConfig.cache.db, {});
@@ -36,6 +33,25 @@ describe.only('Internal NPM Registry', function() {
         assert.equal(index.versions['0.0.1'].dist.shasum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
         done();
       });
+    });
+  });
+  
+  it('Should allow you to update a module', function(done) {
+    var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
+    var path2 = __dirname + '/../data/sample-files/simple-empty-app-0.0.2.tgz';
+    
+    internalRegistry.addModule(path, function(err, name, version) {
+      assert.equal(err, undefined);
+      internalRegistry.addModule(path2, function(err, name, version) {
+        assert.equal(err, undefined);
+        internalRegistry.getModuleIndex('simple-empty-app', function(err, index) {
+          assert.equal(err, undefined);
+          assert.equal(index['dist-tags'].latest, '0.0.2');
+          assert.equal(index.versions['0.0.1'].dist.shasum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
+          assert.equal(index.versions['0.0.2'].dist.shasum, '477d9f84a5ded6e65cc0557e52ebc85ba7b23c05');
+          done();
+        });         
+      })
     });
   });
   
