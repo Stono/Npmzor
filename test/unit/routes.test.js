@@ -9,7 +9,7 @@ var fs         = require('fs');
 var mockConfig = require('../mockConfig').getNoProxyConfig();
 var RegistryManager = require('../../lib/registryManager').RegistryManager;
 
-describe('Routing Configuration (routes)', function() {
+describe.only('Routing Configuration (routes)', function() {
   var server;
 
   before(function(done) {
@@ -36,6 +36,22 @@ describe('Routing Configuration (routes)', function() {
       };
     };
     
+    var MockMultiparty = function() {
+      
+      var Form = function() {
+        var parse = function (req, callback) {
+          callback(null, [], []);
+        };
+        
+        return {
+          parse: parse
+        };
+      };
+      return {
+        Form: Form
+      };
+    };
+    
     mockRegistryManager.setup
       .getModuleIndex
       .toCallbackWith([undefined, JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'))]);
@@ -45,7 +61,7 @@ describe('Routing Configuration (routes)', function() {
       .toCallbackWith([undefined, 'fake-path']);
 
     var routes = new require('../../lib/routes')
-      .Routes(mockConfig, mockRegistryManager, new MockFs());
+      .Routes(mockConfig, mockRegistryManager, new MockFs(), new MockMultiparty());
     server = http.createServer(routes.requestHandler);
     server.listen(mockConfig.port, done);
   });

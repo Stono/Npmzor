@@ -105,6 +105,19 @@ describe('NPMZor outside in', function() {
     });
   });
 
+  it.only('Should accept a TGZ module PUT to it', function(done) {
+    var sampleTgz = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
+    restler.put(endPoint + '/simple-empty-app', {
+      multipart: true,
+      data: {
+        package: restler.file(sampleTgz, null, 592, null, 'application/octet-stream')
+      }
+    }).on('complete', function(data, res) {
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  
   it('Should return a 404 on an invalid index page', function(done) {
     content = null;
     retStatus = 404;
