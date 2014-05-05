@@ -18,7 +18,7 @@ describe('NPM Registry Cache', function() {
 
   var contents = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
   contents = JSON.parse(contents);
-    
+  
   beforeEach(function(done) {
     testUtil.clearAll();
     mkdirp(mockConfig.db, function() {
@@ -31,7 +31,7 @@ describe('NPM Registry Cache', function() {
   });
   
   after(function() {
-    //testUtil.clearAll();
+    testUtil.clearAll();
   });
   
   it('Should add an index to its cache', function(done) {
