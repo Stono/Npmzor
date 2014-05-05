@@ -15,8 +15,6 @@ var testUtil   = new require('../testUtil').TestUtil(mockConfig);
 
 describe('NPM Registry Cache', function() {
   var registryCache;
-  var pathToDbs    = __dirname + '/../../db';
-  var pathToTestDb = pathToDbs + '/test';
 
   var contents = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     contents = JSON.parse(contents);
@@ -24,9 +22,9 @@ describe('NPM Registry Cache', function() {
   beforeEach(function(done) {
     testUtil.clearCache();
     testUtil.clearDb();
-    mkdirp(pathToTestDb, function() {
+    mkdirp(mockConfig.cache.db, function() {
       var Db = require('tingodb')().Db;
-      var db = new Db(pathToTestDb, {});
+      var db = new Db(mockConfig.cache.db, {});
       mockConfig.cache.timeout = 60;
       registryCache = new RegistryCache(mockConfig, db, fs);
       done();

@@ -4,6 +4,9 @@ var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
   temp: '/tmp',
+  internal: {
+    tgz: './internal'
+  },
   cache: {
     // Timeout is in seconds
     timeout: (60 * 60),
