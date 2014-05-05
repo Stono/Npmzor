@@ -12,9 +12,9 @@ describe('Internal NPM Registry', function() {
   beforeEach(function(done) {
     testUtil.clearCache();
     testUtil.clearDb();
-    mkdirp(mockConfig.cache.db, function() {
+    mkdirp(mockConfig.db, function() {
       var Db = require('tingodb')().Db;
-      var db = new Db(mockConfig.cache.db, {});
+      var db = new Db(mockConfig.db, {});
       
       internalRegistry = new InternalRegistry(mockConfig, db);
       done();
