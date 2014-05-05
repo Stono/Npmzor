@@ -73,6 +73,7 @@ grunt mochaTest:acceptance
 ```
 
 ## Release History
+  - 0.3.0 Added the ability to host your own node modules
   - 0.2.0 Proxying of json and tgz files completed using TingoDB
   - 0.1.2 no_proxy env variable is honored
   - 0.1.1 Basic json proxying and caching completed
