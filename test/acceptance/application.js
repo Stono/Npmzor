@@ -17,7 +17,6 @@ var crypto     = require('../../lib/crypto');
  */
 describe('NPMZor outside in', function() {
   
-  // process.env.ENV = 'test';
   var endPoint = config.url,
       app,
       fakeNpmEndpoint;
@@ -33,8 +32,7 @@ describe('NPMZor outside in', function() {
   });
   
   before(function(done) {
-    testUtil.clearCache();
-    testUtil.clearDb();
+    testUtil.clearAll();
     app = require('../../app.js');
     
     fakeNpmEndpoint = http.createServer(function (req, res) {
@@ -48,6 +46,7 @@ describe('NPMZor outside in', function() {
   });
   
   after(function() {
+    testUtil.clearAll();
     fakeNpmEndpoint.close();
     app().close();
   });
