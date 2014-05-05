@@ -1,11 +1,11 @@
 'use strict';
-var assert          = require('assert');
-var deride          = require('deride');
+var assert           = require('assert');
+var deride           = require('deride');
 
-var NpmRegistry     = require('../../lib/npmRegistry').NpmRegistry;
-var RegistryManager = require('../../lib/registryManager').RegistryManager;
-var RegistryCache   = require('../../lib/registryCache').RegistryCache;
-var HttpUtil        = require('../../lib/httpUtil').HttpUtil;
+var NpmRegistry      = require('../../lib/npmRegistry').NpmRegistry;
+var RegistryManager  = require('../../lib/registryManager').RegistryManager;
+var RegistryCache    = require('../../lib/registryCache').RegistryCache;
+var HttpUtil         = require('../../lib/httpUtil').HttpUtil;
 
 var mockConfig  = require('../mockConfig').getNoProxyConfig();
 
@@ -24,7 +24,11 @@ describe('Registry Manager (registryManager)', function() {
     mockCache.setup.getIndex.toCallbackWith([undefined, null]);
     mockCache.setup.addIndex.toCallbackWith([undefined, null]);
     
-    registryManager = new RegistryManager(mockConfig, mockCache, httpUtil);    
+    var mockInternal = deride.stub(['getModule', 'getModuleIndex']);
+    mockInternal.setup.getModule.toCallbackWith([undefined, null]);
+    mockInternal.setup.getModuleIndex.toCallbackWith([undefined, null]);
+      
+    registryManager = new RegistryManager(mockConfig, mockCache, httpUtil, mockInternal);    
   });
   
   it('Should accept a new Registry', function(done) {

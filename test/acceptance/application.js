@@ -17,7 +17,6 @@ var crypto     = require('../../lib/crypto');
  */
 describe('NPMZor outside in', function() {
   
-  // process.env.ENV = 'test';
   var endPoint = config.url,
       app,
       fakeNpmEndpoint;
@@ -33,8 +32,7 @@ describe('NPMZor outside in', function() {
   });
   
   before(function(done) {
-    testUtil.clearCache();
-    testUtil.clearDb();
+    testUtil.clearAll();
     app = require('../../app.js');
     
     fakeNpmEndpoint = http.createServer(function (req, res) {
@@ -48,6 +46,7 @@ describe('NPMZor outside in', function() {
   });
   
   after(function() {
+    testUtil.clearAll();
     fakeNpmEndpoint.close();
     app().close();
   });
@@ -77,7 +76,17 @@ describe('NPMZor outside in', function() {
     });
   });
 
-  it('Should return a 404 when requestinga package version that doesnt exist', function(done) {
+  it('Should return a 404 for an invalid specific version page', function(done) {
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    restler.json(endPoint + '/mkdirp/0.0.0')
+    .on('complete', function(result, res) {
+      assert.equal(result instanceof Error, false);
+      assert.equal(res.statusCode, 404);
+      done();
+    });
+  });
+  
+  it('Should return a 404 when requesting a package version that doesnt exist', function(done) {
     content = null;
     retStatus = 404;
     restler.get(endPoint + '/deride/-/deride-0.0.7.tgz')
@@ -106,6 +115,20 @@ describe('NPMZor outside in', function() {
     });
   });
 
+  it('Should accept a TGZ module PUT to it', function(done) {
+    var sampleTgz = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
+    restler.put(endPoint + '/simple-empty-app', {
+      multipart: true,
+      data: {
+        package: restler.file(sampleTgz, null, 592, null, 'application/octet-stream')
+      }
+    }).on('complete', function(data, res) {
+      assert.equal(data.response, 'simple-empty-app version 0.0.1 recieved and indexed.');
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+  
   it('Should return a 404 on an invalid index page', function(done) {
     content = null;
     retStatus = 404;

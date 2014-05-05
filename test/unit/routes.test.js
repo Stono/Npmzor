@@ -36,6 +36,31 @@ describe('Routing Configuration (routes)', function() {
       };
     };
     
+    var MockMultiparty = function() {
+      
+      var Form = function() {
+        var parse = function (req, callback) {
+          callback(null, [], 
+            { package: 
+              [
+                {
+                  fieldName: 'package',
+                  path: '/tmp/28670-1x1i0pm.tgz',
+                }
+              ]
+            }
+          );
+        };
+        
+        return {
+          parse: parse
+        };
+      };
+      return {
+        Form: Form
+      };
+    };
+    
     mockRegistryManager.setup
       .getModuleIndex
       .toCallbackWith([undefined, JSON.parse(fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp'))]);
@@ -44,8 +69,12 @@ describe('Routing Configuration (routes)', function() {
       .getModule
       .toCallbackWith([undefined, 'fake-path']);
 
+    mockRegistryManager.setup
+      .addInternalModule
+      .toCallbackWith([undefined, 'fake-path', 'fake-version']);
+      
     var routes = new require('../../lib/routes')
-      .Routes(mockConfig, mockRegistryManager, new MockFs());
+      .Routes(mockConfig, mockRegistryManager, new MockFs(), new MockMultiparty());
     server = http.createServer(routes.requestHandler);
     server.listen(mockConfig.port, done);
   });
@@ -64,12 +93,13 @@ describe('Routing Configuration (routes)', function() {
     { url: 'mkdirp/12.1.20', code: 404 },
     { url: 'mkdirp/-/some-module.tgz', code: 404 },
     { url: 'mkdirp/-/some-module.zip', code: 404 },
-    { url: 'mkdirp/some-module.tgz', code: 404 }
+    { url: 'mkdirp/some-module.tgz', code: 404 },
+    { url: 'simple-empty-app', code: 200, method: 'put'}
   ];
 
   _.forEach(urls, function(url) {
     it('Should return status ' + url.code + ' for ' + url.url, function(done) {
-      restler.get(mockConfig.url + '/' + url.url)
+      restler[url.method || 'get'](mockConfig.url + '/' + url.url)
       .on('complete', function(result, res) {
         assert.equal(res.statusCode, url.code);
         done();

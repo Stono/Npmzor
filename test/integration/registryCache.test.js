@@ -15,22 +15,23 @@ var testUtil   = new require('../testUtil').TestUtil(mockConfig);
 
 describe('NPM Registry Cache', function() {
   var registryCache;
-  var pathToDbs    = __dirname + '/../../db';
-  var pathToTestDb = pathToDbs + '/test';
 
   var contents = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
-    contents = JSON.parse(contents);
-    
+  contents = JSON.parse(contents);
+  
   beforeEach(function(done) {
-    testUtil.clearCache();
-    testUtil.clearDb();
-    mkdirp(pathToTestDb, function() {
+    testUtil.clearAll();
+    mkdirp(mockConfig.db, function() {
       var Db = require('tingodb')().Db;
-      var db = new Db(pathToTestDb, {});
+      var db = new Db(mockConfig.db, {});
       mockConfig.cache.timeout = 60;
-      registryCache = new RegistryCache(mockConfig, db, fs);
+      registryCache = new RegistryCache(mockConfig, db);
       done();
     });
+  });
+  
+  after(function() {
+    testUtil.clearAll();
   });
   
   it('Should add an index to its cache', function(done) {

@@ -1,33 +1,31 @@
 'use strict';
 
-var fs = require('fs');
+var fileUtil = new require('../lib/fsUtil').FileUtil();
 var TestUtil = function(config) {
   
-  var deleteFolderRecursive = function(path) {
-    if( fs.existsSync(path) ) {
-      fs.readdirSync(path).forEach(function(file){
-        var curPath = path + '/' + file;
-        if(fs.lstatSync(curPath).isDirectory()) { // recurse
-          deleteFolderRecursive(curPath);
-        } else { // delete file
-          fs.unlinkSync(curPath);
-        }
-      });
-      fs.rmdirSync(path);
-    }
+  var clearCache = function() {
+    fileUtil.deleteFolder(config.cache.tgz);
   };
   
-  var clearCache = function() {
-    deleteFolderRecursive(config.cache.tgz);
+  var clearInternal = function() {
+    fileUtil.deleteFolder(config.internal.tgz);
   };
 
   var clearDb = function() {
-    deleteFolderRecursive(config.cache.db);  
+    fileUtil.deleteFolder(config.db);  
+  };
+  
+  var clearAll = function() {
+    clearCache();
+    clearDb();
+    clearInterval();
   };
   
   return Object.freeze({
     clearCache: clearCache,
-    clearDb: clearDb
+    clearInternal: clearInternal,
+    clearDb: clearDb,
+    clearAll: clearAll
   });
 };
 

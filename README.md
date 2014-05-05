@@ -18,10 +18,10 @@ Working:
   - Multiple NPM registry end points (configured in config/env/env.js)
   - Caching of both Index queries and TGZ packages
   - External proxy connections honor http_proxy, https_proxy and no_proxy env variables
+  - Hosting of your own internal modules by /PUT'ing to server:port/package 
 
 To be done:
   - SHA checking of cached packages against the latest index (corruption and new version protection)
-  - Exposing an API to allow hosting of internal modules
   - Logging to file (only console works at the moment)
   - Converting into /bin NPM module
   - Publishing on registry.npmjs.org
@@ -41,6 +41,11 @@ You'll then need to point your NPM config to the new server with:
 ```
 npm config set registry http://yourserver:port/
 ```
+If you want to host your own npm modules on the server, PUT them:
+```
+curl -X PUT -F module=@./simple-empty-app-0.0.1.tgz http://127.0.0.1:8080/simple-empty-app
+``` 
+Internal modules will always be favoured over external modules when a client requests a module or index.
 
 ## Contributing
 This project has been developed using Test Driven Development, and also practices the Revealing Module Pattern for class definition (http://www.andrewrea.co.uk/posts/encapsulation_with_javascript).

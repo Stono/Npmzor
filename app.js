@@ -3,33 +3,35 @@
  * An NPM proxy with the ability to aggregate multiple NPM repositories
  */
 'use strict';
-var http            = require('http');
-var mkdirp          = require('mkdirp');
+var http             = require('http');
+var mkdirp           = require('mkdirp');
 
-var Logger          = require('./lib/logger').Logger;
-var RegistryManager = require('./lib/registryManager').RegistryManager;
-var RegistryCache   = require('./lib/registryCache').RegistryCache;
-var HttpUtil        = require('./lib/httpUtil').HttpUtil;
-var Routes          = require('./lib/routes').Routes;
-var config          = require('./config');
+var Logger           = require('./lib/logger').Logger;
+var RegistryManager  = require('./lib/registryManager').RegistryManager;
+var RegistryCache    = require('./lib/registryCache').RegistryCache;
+var InternalRegistry = require('./lib/internalRegistry').InternalRegistry;
+var HttpUtil         = require('./lib/httpUtil').HttpUtil;
+var Routes           = require('./lib/routes').Routes;
+var config           = require('./config');
 
 // We're going to use tingodb, but you could switch this out to mongodb if you wanted.
-var Db              = require('tingodb')().Db;
-var log             = new Logger(config, 'App');
+var Db               = require('tingodb')().Db;
+var log              = new Logger(config, 'App');
 var app;
 
 // Cache DB setup
-log.debug('Initialising Cache DB at: ' + config.cache.db);
+log.debug('Initialising DB at: ' + config.db);
 
-mkdirp(config.cache.db, function(err) {
+mkdirp(config.db, function(err) {
   if (err) { log.error(err) }
-  var db = new Db(config.cache.db, {});
+  var db = new Db(config.db, {});
     
-  var httpUtil        = new HttpUtil(config);
-  var registryCache   = new RegistryCache(config, db);
-  var registryManager = new RegistryManager(config, registryCache, httpUtil);
-  var routes          = new Routes(config, registryManager);
-  var server          = http.createServer(routes.requestHandler);
+  var httpUtil         = new HttpUtil(config);
+  var registryCache    = new RegistryCache(config, db);
+  var internalRegistry = new InternalRegistry(config, db);
+  var registryManager  = new RegistryManager(config, registryCache, httpUtil, internalRegistry);
+  var routes           = new Routes(config, registryManager);
+  var server           = http.createServer(routes.requestHandler);
   
   app = server.listen(config.port); 
   log.debug('NPMZor started at: ' + config.url);
