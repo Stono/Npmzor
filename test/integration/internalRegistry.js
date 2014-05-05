@@ -5,7 +5,7 @@ var InternalRegistry  = require('../../lib/internalRegistry').InternalRegistry;
 var mockConfig        = require('../mockConfig').getNoProxyConfig();
 var testUtil          = new require('../testUtil').TestUtil(mockConfig);
 
-describe.only('Internal NPM Registry', function() {
+describe('Internal NPM Registry', function() {
   
   var internalRegistry;
   
@@ -40,19 +40,18 @@ describe.only('Internal NPM Registry', function() {
     var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
     var path2 = __dirname + '/../data/sample-files/simple-empty-app-0.0.2.tgz';
     
-    internalRegistry.addModule(path, function(err, name, version) {
+    internalRegistry.addModule(path, function(err) {
       assert.equal(err, undefined);
-      internalRegistry.addModule(path2, function(err, name, version) {
+      internalRegistry.addModule(path2, function(err) {
         assert.equal(err, undefined);
         internalRegistry.getModuleIndex('simple-empty-app', function(err, index) {
           assert.equal(err, undefined);
           assert.equal(index['dist-tags'].latest, '0.0.2');
           assert.equal(index.versions['0.0.1'].dist.shasum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
           assert.equal(index.versions['0.0.2'].dist.shasum, '477d9f84a5ded6e65cc0557e52ebc85ba7b23c05');
-          console.log(index);
           done();
         });         
-      })
+      });
     });
   });
   
