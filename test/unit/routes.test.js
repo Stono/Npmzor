@@ -85,7 +85,9 @@ describe('Routing Configuration (routes)', function() {
 
   var urls = [
     { url: 'mkdirp', code: 200 },
+    { url: 'htmlparser2', code: 200 },
     { url: 'underscore.tostring', code: 200 },
+    { url: 'buffer-crc32', code: 200 },
     { url: 'mkdirp/1.0.2-1.2.3', code: 200},
     { url: 'mkdirp/0.1.0', code: 200 },
     { url: 'mkdirp/0.3.4', code: 200 },
