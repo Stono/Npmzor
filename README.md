@@ -73,6 +73,7 @@ grunt mochaTest:acceptance
 ```
 
 ## Release History
+  - 0.3.1 Routing upgrades following use in my environment.
   - 0.3.0 Added the ability to host your own node modules
   - 0.2.0 Basic TGZ proxying and caching completed
   - 0.1.2 Use of environment proxies (http, https and no_proxy)
