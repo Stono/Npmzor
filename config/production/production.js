@@ -1,20 +1,18 @@
 var os = require("os");
 var path = require('path');
 
-var appRoot = path.dirname(module.parent.filename).split('/config/')[0];
-
 var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
-  temp: '/tmp',
-  db: appRoot + '/db/' + (process.env.ENV || 'dev'),
+  temp: '/tmp/npmzor',
+  db: '/var/lib/npmzor/' + (process.env.ENV || 'dev'),
   internal: {
-    tgz: appRoot + '/internal'
+    tgz: '/var/cache/npmzor/internal'
   },
   cache: {
     // Timeout is in seconds
     timeout: (60 * 60),
-    tgz: appRoot + '/cache'
+    tgz: '/var/cache/npmzor/cache'
   },
   logging: {
     console: true,

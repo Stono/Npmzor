@@ -1,5 +1,4 @@
 'use strict';
-var mkdirp            = require('mkdirp');
 var assert            = require('assert');
 var InternalRegistry  = require('../../lib/internalRegistry').InternalRegistry;
 var mockConfig        = require('../mockConfig').getNoProxyConfig();
@@ -11,13 +10,11 @@ describe('Internal NPM Registry', function() {
   
   beforeEach(function(done) {
     testUtil.clearAll();
-    mkdirp(mockConfig.db, function() {
-      var Db = require('tingodb')().Db;
-      var db = new Db(mockConfig.db, {});
+    var Db = require('tingodb')().Db;
+    var db = new Db(mockConfig.db, {});
       
-      internalRegistry = new InternalRegistry(mockConfig, db);
-      done();
-    });    
+    internalRegistry = new InternalRegistry(mockConfig, db);
+    done();
   });
   
   it('Should allow you to add a module', function(done) {

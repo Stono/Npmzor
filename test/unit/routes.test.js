@@ -85,10 +85,13 @@ describe('Routing Configuration (routes)', function() {
 
   var urls = [
     { url: 'mkdirp', code: 200 },
+    { url: 'underscore.tostring', code: 200 },
+    { url: 'mkdirp/1.0.2-1.2.3', code: 200},
     { url: 'mkdirp/0.1.0', code: 200 },
     { url: 'mkdirp/0.3.4', code: 200 },
     { url: 'mkdirp/-/mkdirp-1.0.10.tgz', code: 200 },
     { url: 'mkdirp/-/mkdirp-1.0.10-1.tgz', code: 200 },
+    { url: 'socket.io/0.9.14', code: 200 },
     { url: 'mkdirp/12.1.0', code: 404 },
     { url: 'mkdirp/12.1.20', code: 404 },
     { url: 'mkdirp/-/some-module.tgz', code: 404 },

@@ -8,7 +8,6 @@
  */
 var fs     = require('fs');
 var assert = require('assert');
-var mkdirp = require('mkdirp');
 var RegistryCache = require('../../lib/registryCache').RegistryCache;
 var mockConfig    = require('../mockConfig').getNoProxyConfig();
 var testUtil   = new require('../testUtil').TestUtil(mockConfig);
@@ -21,13 +20,11 @@ describe('NPM Registry Cache', function() {
   
   beforeEach(function(done) {
     testUtil.clearAll();
-    mkdirp(mockConfig.db, function() {
-      var Db = require('tingodb')().Db;
-      var db = new Db(mockConfig.db, {});
-      mockConfig.cache.timeout = 60;
-      registryCache = new RegistryCache(mockConfig, db);
-      done();
-    });
+    var Db = require('tingodb')().Db;
+    var db = new Db(mockConfig.db, {});
+    mockConfig.cache.timeout = 60;
+    registryCache = new RegistryCache(mockConfig, db);
+    done();
   });
   
   after(function() {

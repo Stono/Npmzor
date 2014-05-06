@@ -4,7 +4,6 @@
  */
 'use strict';
 var http             = require('http');
-var mkdirp           = require('mkdirp');
 
 var Logger           = require('./lib/logger').Logger;
 var RegistryManager  = require('./lib/registryManager').RegistryManager;
@@ -22,20 +21,17 @@ var app;
 // Cache DB setup
 log.debug('Initialising DB at: ' + config.db);
 
-mkdirp(config.db, function(err) {
-  if (err) { log.error(err) }
-  var db = new Db(config.db, {});
+var db = new Db(config.db, {});
     
-  var httpUtil         = new HttpUtil(config);
-  var registryCache    = new RegistryCache(config, db);
-  var internalRegistry = new InternalRegistry(config, db);
-  var registryManager  = new RegistryManager(config, registryCache, httpUtil, internalRegistry);
-  var routes           = new Routes(config, registryManager);
-  var server           = http.createServer(routes.requestHandler);
+var httpUtil         = new HttpUtil(config);
+var registryCache    = new RegistryCache(config, db);
+var internalRegistry = new InternalRegistry(config, db);
+var registryManager  = new RegistryManager(config, registryCache, httpUtil, internalRegistry);
+var routes           = new Routes(config, registryManager);
+var server           = http.createServer(routes.requestHandler);
   
-  app = server.listen(config.port); 
-  log.debug('NPMZor started at: ' + config.url);
-});
+app = server.listen(config.port); 
+log.debug('NPMZor started at: ' + config.url);
 
 module.exports = function() {
   return app;
