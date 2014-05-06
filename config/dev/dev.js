@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-var testConfig = require('../test/test');
+var productionConfig = require('../production/production');
 var devConfig = {
   logging: {
     console: true,
@@ -8,4 +8,4 @@ var devConfig = {
   }
 };
 
-module.exports = _.merge({}, testConfig, devConfig);
+module.exports = _.merge({}, productionConfig, devConfig);

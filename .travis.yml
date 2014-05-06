@@ -6,4 +6,4 @@ before_script:
 env:
   ENV=test
 script:
-  - "sudo grunt travis"
+  - "grunt travis
