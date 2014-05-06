@@ -1,17 +1,20 @@
 var os = require("os");
+var path = require('path');
+
+var appRoot = path.dirname(module.parent.filename).split('/config/')[0];
 
 var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
   temp: '/tmp',
-  db: './db/' + (process.env.ENV || 'dev'),
+  db: appRoot + '/db/' + (process.env.ENV || 'dev'),
   internal: {
-    tgz: './internal'
+    tgz: appRoot + '/internal'
   },
   cache: {
     // Timeout is in seconds
     timeout: (60 * 60),
-    tgz: './cache'
+    tgz: appRoot + '/cache'
   },
   logging: {
     console: true,
@@ -26,8 +29,8 @@ var productionConfig = {
 };
 
 var extractUrl = function(url) {
-  var urlRegex = /^(.*):\/\/([a-z\-.]+):?([0-9]+)?(.*)$/;
-  var extract  = process.env.http_proxy.match(urlRegex);
+  var urlRegex = /^(.*):\/\/([a-z\-.0-9]+):?([0-9]+)?(.*)$/;
+  var extract  = url.match(urlRegex);
   return {
     hostname: extract[2],
     port: extract[3],
