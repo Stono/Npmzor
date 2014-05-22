@@ -5,7 +5,7 @@ var productionConfig = {
   port: 80,
   url: 'http://' +  os.hostname(),
   temp: '/tmp/npmzor',
-  db: '/var/lib/npmzor/' + (process.env.ENV || 'dev'),
+  db: '/var/lib/npmzor/' + (process.env.ENV || 'production'),
   internal: {
     tgz: '/var/cache/npmzor/internal'
   },

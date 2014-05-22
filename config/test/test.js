@@ -5,7 +5,7 @@ var testConfig = {
   port: 8080,
   url: 'http://127.0.0.1:8080',
   temp: '/tmp/npmzor/temp',
-  db: '/tmp/npmzor/db/' + (process.env.ENV || 'dev'),
+  db: '/tmp/npmzor/db/' + (process.env.ENV || 'test'),
   internal: {
     tgz: '/tmp/npmzor/internal'
   },
@@ -19,4 +19,8 @@ var testConfig = {
   }
 };
 
-module.exports = _.merge({}, productionConfig, testConfig);
+testConfig = _.merge({}, productionConfig, testConfig);
+testConfig.http.proxy = {};
+
+module.exports = testConfig;
+
