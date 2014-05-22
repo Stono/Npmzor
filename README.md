@@ -46,6 +46,7 @@ If you want to host your own npm modules on the server, PUT them:
 curl -X PUT -F module=@./simple-empty-app-0.0.1.tgz http://127.0.0.1:8080/simple-empty-app
 ``` 
 Internal modules will always be favoured over external modules when a client requests a module or index.
+NOTE: If you push the same version multiple times (npmjs.org) does not allow this, you will need to do 'npm cache clear' on the client before doing 'npm install'
 
 ## Contributing
 This project has been developed using Test Driven Development, and also practices the Revealing Module Pattern for class definition (http://www.andrewrea.co.uk/posts/encapsulation_with_javascript).
