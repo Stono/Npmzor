@@ -66,10 +66,10 @@ In summary:
 
 You can run tests with the following:
 ```
-grunt (this will run the full suite)
-grunt mochaTest:unit
-grunt mochaTest:integration
-grunt mochaTest:acceptance
+ENV=local grunt (this will run the full suite)
+ENV=local grunt mochaTest:unit
+ENV=local grunt mochaTest:integration
+ENV=local grunt mochaTest:acceptance
 ```
 
 ## Release History
