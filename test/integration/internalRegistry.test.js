@@ -31,8 +31,8 @@ describe('Internal NPM Registry', function() {
       });
     });
   });
-  
-  it('Should allow you to update a module', function(done) {
+
+  it('Should allow you to update a module to a new version', function(done) {
     var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
     var path2 = __dirname + '/../data/sample-files/simple-empty-app-0.0.2.tgz';
     
@@ -45,6 +45,23 @@ describe('Internal NPM Registry', function() {
           assert.equal(index['dist-tags'].latest, '0.0.2');
           assert.equal(index.versions['0.0.1'].dist.shasum, '4c3f6548fef5305e6ef5029ed7c34c992a707820');
           assert.equal(index.versions['0.0.2'].dist.shasum, '477d9f84a5ded6e65cc0557e52ebc85ba7b23c05');
+          done();
+        });         
+      });
+    });
+  });
+  
+  it('Should allow you to update an existing version and change the hash', function(done) {
+    var path = __dirname + '/../data/sample-files/simple-empty-app-0.0.1.tgz';
+    var path2 = __dirname + '/../data/sample-files/simple-empty-app-0.0.1-diff-hash.tgz';
+    
+    internalRegistry.addModule(path, function(err) {
+      assert.equal(err, undefined);
+      internalRegistry.addModule(path2, function(err) {
+        assert.equal(err, undefined);
+        internalRegistry.getModuleIndex('simple-empty-app', function(err, index) {
+          assert.equal(err, undefined);
+          assert.equal(index.versions['0.0.1'].dist.shasum, '70ff7cba3e189bb65ebe01fc8a7ebddf800ebc60');
           done();
         });         
       });
