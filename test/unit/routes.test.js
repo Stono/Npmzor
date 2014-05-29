@@ -96,6 +96,7 @@ describe('Routing Configuration (routes)', function() {
     { url: 'socket.io/0.9.14', code: 200 },
     { url: 'underscore.string/-/underscore.string-2.2.1.tgz', code: 200 },
     { url: 'my-pack/-/my-pack-0.0.1-9.tgz', code: 200 },
+    { url: 'esprima-fb/-/esprima-fb-3001.0001.0000-dev-harmony-fb.tgz', code: 200 },
     { url: 'favicon.ico', code: 404 },
     { url: 'mkdirp/12.1.0', code: 404 },
     { url: 'mkdirp/12.1.20', code: 404 },
