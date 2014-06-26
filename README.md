@@ -19,6 +19,7 @@ Working:
   - Caching of both Index queries and TGZ packages
   - External proxy connections honor http_proxy, https_proxy and no_proxy env variables
   - Hosting of your own internal modules by /PUT'ing to server:port/package 
+  - Ability to get the /latest details or /-/package-latest 
 
 To be done:
   - SHA checking of cached packages against the latest index (corruption and new version protection)
@@ -48,6 +49,17 @@ curl -X PUT -F module=@./simple-empty-app-0.0.1.tgz http://127.0.0.1:8080/simple
 Internal modules will always be favoured over external modules when a client requests a module or index.
 NOTE: If you push the same version multiple times (npmjs.org) does not allow this, you will need to do 'npm cache clear' on the client before doing 'npm install'
 
+## Extra Features
+Npmzor does a couple of things registry.npmjs.org does not.
+One of these is the ability to get the /latest information
+To get the latest package version json:
+```
+http://yourserver:port/package/latest 
+```
+To download the latest package:
+```
+http://yourserver:port/package/-/package-latest
+```
 ## Contributing
 This project has been developed using Test Driven Development, and also practices the Revealing Module Pattern for class definition (http://www.andrewrea.co.uk/posts/encapsulation_with_javascript).
 
@@ -74,6 +86,7 @@ ENV=local grunt mochaTest:acceptance
 ```
 
 ## Release History
+  - 0.3.2 Added the ability get the /latest of a package 
   - 0.3.1 Routing upgrades following use in my environment.
   - 0.3.0 Added the ability to host your own node modules
   - 0.2.0 Basic TGZ proxying and caching completed
