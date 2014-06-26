@@ -76,6 +76,19 @@ describe('NPMZor outside in', function() {
     });
   });
 
+  it('Should return an index for the latest version', function(done) {
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    restler.json(endPoint + '/mkdirp/latest')
+    .on('complete', function(result, res) {
+      assert.equal(result instanceof Error, false);
+      assert.equal(result.name, 'mkdirp');
+      assert.equal(result.version, '0.4.0');
+      assert.equal(res.statusCode, 200);
+      done();
+    });
+  });
+
+
   it('Should return a 404 for an invalid specific version page', function(done) {
     content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     restler.json(endPoint + '/mkdirp/0.0.0')
@@ -96,8 +109,8 @@ describe('NPMZor outside in', function() {
       done();
     });
   });
-  
-  it('Should return a module when the request is valid', function(done) {
+ 
+ it('Should return a module when the request is valid', function(done) {
     var target  = '/tmp/' + Date.now().toString(12);
     var file    = fs.createWriteStream(target);
     retStatus   = 200;
