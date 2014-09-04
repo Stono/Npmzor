@@ -86,6 +86,7 @@ ENV=local grunt mochaTest:acceptance
 ```
 
 ## Release History
+  - 0.3.3 Fixed a bug where internel registry items didn't have an _id
   - 0.3.2 Added the ability get the /latest of a package 
   - 0.3.1 Routing upgrades following use in my environment.
   - 0.3.0 Added the ability to host your own node modules
