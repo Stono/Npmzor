@@ -119,7 +119,7 @@ describe('NPMZor outside in', function() {
       done();
     });
   });
-  
+
   it('Should return a 404 when requesting a package version that doesnt exist', function(done) {
     content = null;
     retStatus = 404;

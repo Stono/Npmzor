@@ -174,7 +174,7 @@ describe('HTTP Utilities (getJsonUrl)', function() {
 
   it('Should get a url and return nothing if the ETtag matches', function(done) {
     var httpUtil = new HttpUtil(config);
-    httpUtil.getJsonUrl(config.url + '/etest', {tag: '1D1YFVLPGKPGEWBKZYC4LBDPD'}, function(err, json) {
+    httpUtil.getJsonUrl(config.url + '/etest', {etag: '1D1YFVLPGKPGEWBKZYC4LBDPD'}, function(err, json) {
       assert.equal(err, null);
       assert.equal(json, null);
       done();
