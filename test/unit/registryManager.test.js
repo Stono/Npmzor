@@ -56,7 +56,7 @@ describe('Registry Manager (registryManager)', function() {
     
     it('Should forward requests to the external Registry', function(done) {
       var mockRegistry = deride.wrap(npmRegistry);
-      mockRegistry.setup.getModuleIndex.toDoThis(function(name, callback) {
+      mockRegistry.setup.getModuleIndex.toDoThis(function(name, tag, callback) {
         callback(undefined, {
           _id: 'fake-repo'
         });
@@ -73,7 +73,7 @@ describe('Registry Manager (registryManager)', function() {
     
     it('Should not hit the second registry if the first returned a positive result', function(done) {
       var mockRegistry1 = deride.wrap(npmRegistry);
-      mockRegistry1.setup.getModuleIndex.toDoThis(function(name, callback) {
+      mockRegistry1.setup.getModuleIndex.toDoThis(function(name, tag, callback) {
         callback(undefined, {
           _id: 'fake-repo'
         });
@@ -97,12 +97,12 @@ describe('Registry Manager (registryManager)', function() {
     it('Should hit the second registry if the first returned a negative result', function(done) {
       var mockRegistry1 = deride.wrap(npmRegistry);    
       var mockRegistry2 = deride.wrap(npmRegistry);
-      mockRegistry1.setup.getModuleIndex.toDoThis(function(name, callback) {
+      mockRegistry1.setup.getModuleIndex.toDoThis(function(name, tag, callback) {
         callback(undefined, null);
       });
       
       mockRegistry2.setup.getRoot.toReturn('registry2');
-      mockRegistry2.setup.getModuleIndex.toDoThis(function(name, callback) {
+      mockRegistry2.setup.getModuleIndex.toDoThis(function(name, tag, callback) {
         callback(undefined, {
           _id: 'fake-repo'
         });

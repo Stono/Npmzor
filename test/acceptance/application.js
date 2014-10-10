@@ -23,11 +23,14 @@ describe('NPMZor outside in', function() {
       
   var retStatus = 200,
       contentType = 'application/json',
+      etag,
       content;
       
   config.registries = ['http://127.0.0.1:6699'];
 
   beforeEach(function() {
+    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
+    etag = '1D1YFVLPGKPGEWBKZYC4LBDPD';
     testUtil.clearCache();
   });
   
@@ -36,8 +39,13 @@ describe('NPMZor outside in', function() {
     app = require('../../app.js');
     
     fakeNpmEndpoint = http.createServer(function (req, res) {
-      res.writeHead(retStatus, {'Content-Type': contentType});
-      res.end(content);
+      if(req.headers['if-none-match'] === etag) {
+        res.writeHead(304, {'Content-Type': contentType});
+        res.end();
+      } else {
+        res.writeHead(retStatus, {'Content-Type': contentType, 'Etag': etag});
+        res.end(content);
+      }
     }).listen(6699, function() {
       setTimeout(function() {
         done();
@@ -54,7 +62,6 @@ describe('NPMZor outside in', function() {
   this.timeout(3000);
 
   it('Should return a valid index page', function(done) {
-    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     restler.json(endPoint + '/mkdirp')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false, result);
@@ -63,9 +70,25 @@ describe('NPMZor outside in', function() {
       done();
     });
   });
-  
+ 
+  it('Should return an updated index page if the remote registry has updated', function(done) {
+    restler.json(endPoint + '/mkdirp')
+    .on('complete', function(result, res) {
+      assert.equal(result instanceof Error, false, result);
+      assert.equal(res.statusCode, 200, 'Incorrect status code returned: ' + res.statusCode);
+      assert.equal(result._id, 'mkdirp', 'Result returned did not have an _id of deride');
+      // now update the content
+      content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp-updated').toString();
+      etag = 'updated';
+      restler.json(endPoint + '/mkdirp')
+        .on('complete', function(result) {
+          assert.equal(result['dist-tags'].latest, '0.4.1');
+          done();
+        });
+    });
+  });
+ 
   it('Should return a valid specific version page', function(done) {
-    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     restler.json(endPoint + '/mkdirp/0.1.0')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);
@@ -77,7 +100,6 @@ describe('NPMZor outside in', function() {
   });
 
   it('Should return an index for the latest version', function(done) {
-    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     restler.json(endPoint + '/mkdirp/latest')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);
@@ -90,7 +112,6 @@ describe('NPMZor outside in', function() {
 
 
   it('Should return a 404 for an invalid specific version page', function(done) {
-    content = fs.readFileSync(__dirname + '/../data/sample-requests/mkdirp').toString();
     restler.json(endPoint + '/mkdirp/0.0.0')
     .on('complete', function(result, res) {
       assert.equal(result instanceof Error, false);

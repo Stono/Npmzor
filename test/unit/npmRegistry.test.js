@@ -38,7 +38,7 @@ describe('NPM Registry (npmRegistry)', function() {
     ]);
 
     var npmRegistry = new NpmRegistry(config, httpUtil, endpoint);
-    npmRegistry.getModuleIndex('mkdirp', function(err, json) {
+    npmRegistry.getModuleIndex('mkdirp', null, function(err, json) {
       assert.equal(err, undefined, err);
       assert.equal(json._id, 'mkdirp');
       httpUtil.expect.getJsonUrl.called.once('expectgetJsonUrl was not called the expected amount of times.');
@@ -55,7 +55,7 @@ describe('NPM Registry (npmRegistry)', function() {
     ]);
 
     var npmRegistry = new NpmRegistry(config, httpUtil, endpoint);
-    npmRegistry.getModuleIndex('mkdirp', function(err, json) {
+    npmRegistry.getModuleIndex('mkdirp', null, function(err, json) {
       assert.equal(err, undefined, err);
       assert.notEqual(json, undefined);
       httpUtil.expect.getJsonUrl.called.once('getJsonUrl was caled more than once!');

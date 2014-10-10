@@ -149,8 +149,13 @@ describe('HTTP Utilities (getJsonUrl)', function() {
 
   before(function(done) {
     server = http.createServer(function (req, res) {
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      fs.createReadStream(__dirname + '/../data/sample-requests/mkdirp').pipe(res);
+      if(req.url === '/etest') {
+        res.writeHead(304, {'Content-Type': 'application/json'});
+        res.end();
+      } else {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        fs.createReadStream(__dirname + '/../data/sample-requests/mkdirp').pipe(res);
+      }
     }).listen(config.port, done);
   });
 
@@ -160,13 +165,21 @@ describe('HTTP Utilities (getJsonUrl)', function() {
 
   it('Should get a url and return a valid JSON object', function(done) {
     var httpUtil  = new HttpUtil(config);
-    httpUtil.getJsonUrl(config.url, function(err, json) {
+    httpUtil.getJsonUrl(config.url, {}, function(err, json) {
       assert.equal(err, null);
       assert.equal(json._id, 'mkdirp');
       done();
     });
   });
 
+  it('Should get a url and return nothing if the ETtag matches', function(done) {
+    var httpUtil = new HttpUtil(config);
+    httpUtil.getJsonUrl(config.url + '/etest', {tag: '1D1YFVLPGKPGEWBKZYC4LBDPD'}, function(err, json) {
+      assert.equal(err, null);
+      assert.equal(json, null);
+      done();
+    });
+  });
 });
 
 
