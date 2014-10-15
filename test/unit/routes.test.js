@@ -105,7 +105,8 @@ describe('Routing Configuration (routes)', function() {
     { url: 'mkdirp/some-module.tgz', code: 404 },
     { url: 'simple-empty-app', code: 200, method: 'put'},
     { url: 'mkdirp/latest', code: 200 },
-    { url: 'mkdirp/-/mkdirp-latest', code: 200 }
+    { url: 'mkdirp/-/mkdirp-latest', code: 200 },
+    { url: 'mkdirp/*', code: 200 }
   ];
 
   _.forEach(urls, function(url) {
