@@ -86,6 +86,7 @@ ENV=local grunt mochaTest:acceptance
 ```
 
 ## Release History
+  - 0.4.2 Added a root url which returns the version
   - 0.4.1 Added the /* route which does the same as /latest
   - 0.4.0 Huge bug fix, ETag is now checked when pulling from cache vs remote registry
   - 0.3.3 Fixed a bug where internel registry items didn't have an _id
